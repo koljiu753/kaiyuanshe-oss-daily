@@ -1,0 +1,130 @@
+{
+  "generated_at": "2026-06-17T22:09:11.663373+08:00",
+  "lookback_days": 3,
+  "report_items": 49,
+  "process": {
+    "irrelevant": 56,
+    "accepted": 49,
+    "similar_merged": 1
+  },
+  "enrichment": {
+    "enriched": 0,
+    "translated": 0,
+    "rewritten": 0,
+    "cached": 0,
+    "skipped": 49
+  },
+  "sources": {
+    "thenewstack": {
+      "ok": 1,
+      "items": 16,
+      "name": "The New Stack"
+    },
+    "opensource_com": {
+      "ok": 1,
+      "items": 0,
+      "name": "Opensource.com"
+    },
+    "devclass": {
+      "ok": 1,
+      "items": 1,
+      "name": "DevClass"
+    },
+    "infoworld_open_source": {
+      "ok": 1,
+      "items": 0,
+      "name": "InfoWorld Open Source"
+    },
+    "techcrunch_open_source": {
+      "ok": 1,
+      "items": 0,
+      "name": "TechCrunch Open Source"
+    },
+    "zdnet_open_source": {
+      "ok": 1,
+      "items": 3,
+      "name": "ZDNet Open Source"
+    },
+    "arstechnica_open_source": {
+      "ok": 1,
+      "items": 0,
+      "name": "Ars Technica Open Source"
+    },
+    "hacker_news": {
+      "ok": 1,
+      "items": 20,
+      "name": "Hacker News"
+    },
+    "reddit_opensource": {
+      "ok": 1,
+      "items": 25,
+      "name": "Reddit r/opensource"
+    },
+    "lobsters_open_source": {
+      "ok": 1,
+      "items": 25,
+      "name": "Lobsters"
+    },
+    "cncf_blog": {
+      "ok": 1,
+      "items": 3,
+      "name": "CNCF Blog"
+    },
+    "linux_foundation_blog": {
+      "ok": 1,
+      "items": 0,
+      "name": "Linux Foundation Blog"
+    },
+    "apache_foundation_blog": {
+      "ok": 1,
+      "items": 0,
+      "name": "Apache Software Foundation Blog"
+    },
+    "github_blog": {
+      "ok": 1,
+      "items": 3,
+      "name": "GitHub Blog"
+    },
+    "gitlab_blog": {
+      "ok": 1,
+      "items": 2,
+      "name": "GitLab Blog"
+    },
+    "microsoft_open_source_blog": {
+      "ok": 1,
+      "items": 0,
+      "name": "Microsoft Open Source Blog"
+    },
+    "aws_open_source_blog": {
+      "ok": 1,
+      "items": 0,
+      "name": "AWS Open Source Blog"
+    },
+    "mastodon_opensource": {
+      "ok": 1,
+      "items": 0,
+      "name": "Mastodon #opensource"
+    },
+    "mastodon_foss": {
+      "ok": 1,
+      "items": 0,
+      "name": "Mastodon #foss"
+    },
+    "mastodon_linux": {
+      "ok": 1,
+      "items": 0,
+      "name": "Mastodon #linux"
+    },
+    "cncf_youtube": {
+      "ok": 1,
+      "items": 3,
+      "name": "CNCF YouTube"
+    },
+    "linux_foundation_youtube": {
+      "ok": 1,
+      "items": 5,
+      "name": "Linux Foundation YouTube"
+    }
+  },
+  "warnings": []
+}

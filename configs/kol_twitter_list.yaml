@@ -1,0 +1,75 @@
+kol_twitter_list:
+  name: OpenSourceKOL
+  description: 全球开源意见领袖
+  fetch_method: twitter_api_list
+  env:
+    bearer_token: TWITTER_BEARER_TOKEN
+  filter_keywords:
+    - open source
+    - Linux
+    - Kubernetes
+    - release
+    - license
+    - GitHub
+    - 开源
+  accounts:
+    - id: kelseyhightower
+      name: Kelsey Hightower
+      field: 云原生/布道
+    - id: mitsuhiko
+      name: Armin Ronacher
+      field: Python/Rust
+    - id: gvanrossum
+      name: Guido van Rossum
+      field: Python
+    - id: jeresig
+      name: John Resig
+      field: JavaScript/jQuery
+    - id: bcantrill
+      name: Bryan Cantrill
+      field: 系统软件
+    - id: dhh
+      name: DHH
+      field: Ruby on Rails
+    - id: nixcraft
+      name: nixCraft
+      field: Linux/开源科普
+    - id: mjasay
+      name: Matt Asay
+      field: 开源商业
+    - id: monkchips
+      name: James Governor
+      field: RedMonk/行业分析
+    - id: sarahnovotny
+      name: Sarah Novotny
+      field: 企业开源治理
+    - id: ashedryden
+      name: Ashe Dryden
+      field: 开源多元化
+    - id: steveklabnik
+      name: Steve Klabnik
+      field: Rust
+    - id: cra
+      name: Chris Aniszczyk
+      field: CNCF
+    - id: nayafia
+      name: Nadia Eghbal
+      field: 开源可持续性
+    - id: editingemily
+      name: Emily Omier
+      field: 开源创业
+    - id: jbeda
+      name: Joe Beda
+      field: Kubernetes
+    - id: jessfraz
+      name: Jessie Frazelle
+      field: 容器安全
+    - id: asolove
+      name: Adam Solove
+      field: 开源法律
+    - id: pkwarc
+      name: Priyanka Sharma
+      field: CNCF
+    - id: Linus__Torvalds
+      name: Linus Torvalds news account
+      field: Linux/Git

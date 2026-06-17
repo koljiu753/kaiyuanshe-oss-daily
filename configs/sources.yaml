@@ -1,0 +1,229 @@
+sources:
+  - id: thenewstack
+    name: The New Stack
+    type: rss
+    url: https://thenewstack.io/feed/
+    category: 科技媒体
+    enabled: true
+    frequency_minutes: 1440
+    tags: [media]
+
+  - id: opensource_com
+    name: Opensource.com
+    type: rss
+    url: https://opensource.com/feed
+    category: 科技媒体
+    enabled: true
+    frequency_minutes: 1440
+    tags: [media]
+
+  - id: devclass
+    name: DevClass
+    type: rss
+    url: https://devclass.com/feed/
+    category: 科技媒体
+    enabled: true
+    frequency_minutes: 1440
+    tags: [media]
+
+  - id: infoworld_open_source
+    name: InfoWorld Open Source
+    type: rss
+    url: https://www.infoworld.com/category/open-source/index.rss
+    category: 科技媒体
+    enabled: true
+    frequency_minutes: 1440
+    tags: [media]
+
+  - id: techcrunch_open_source
+    name: TechCrunch Open Source
+    type: rss
+    url: https://techcrunch.com/tag/open-source/feed/
+    category: 科技媒体
+    enabled: true
+    frequency_minutes: 1440
+    tags: [media]
+
+  - id: zdnet_open_source
+    name: ZDNet Open Source
+    type: rss
+    url: https://www.zdnet.com/topic/open-source/rss.xml
+    category: 科技媒体
+    enabled: true
+    frequency_minutes: 1440
+    tags: [media]
+
+  - id: arstechnica_open_source
+    name: Ars Technica Open Source
+    type: rss
+    url: https://arstechnica.com/tag/open-source/feed/
+    category: 科技媒体
+    enabled: true
+    frequency_minutes: 1440
+    tags: [media]
+
+  - id: theregister_open_source
+    name: The Register Open Source
+    type: web
+    url: https://www.theregister.com/software/open_source/
+    category: 科技媒体
+    enabled: false
+    frequency_minutes: 1440
+    tags: [media]
+
+  - id: hacker_news
+    name: Hacker News
+    type: rss
+    url: https://hnrss.org/newest?q=open%20source
+    category: 社区
+    enabled: true
+    frequency_minutes: 360
+    tags: [hacker-news]
+
+  - id: reddit_opensource
+    name: Reddit r/opensource
+    type: reddit_rss
+    url: https://www.reddit.com/r/opensource/new/.rss
+    category: 社区
+    enabled: true
+    frequency_minutes: 360
+    tags: [reddit]
+
+  - id: lobsters_open_source
+    name: Lobsters
+    type: lobsters_rss
+    url: https://lobste.rs/rss
+    category: 社区
+    enabled: true
+    frequency_minutes: 360
+    tags: [lobsters]
+
+  - id: cncf_blog
+    name: CNCF Blog
+    type: rss
+    url: https://www.cncf.io/feed/
+    category: 基金会/企业博客
+    enabled: true
+    frequency_minutes: 1440
+    tags: [cncf, cloud-native]
+
+  - id: linux_foundation_blog
+    name: Linux Foundation Blog
+    type: rss
+    url: https://www.linuxfoundation.org/blog/rss.xml
+    category: 基金会/企业博客
+    enabled: true
+    frequency_minutes: 1440
+    tags: [linux-foundation]
+
+  - id: apache_foundation_blog
+    name: Apache Software Foundation Blog
+    type: rss
+    url: https://community.apache.org/blog/index.xml
+    category: 基金会/企业博客
+    enabled: true
+    frequency_minutes: 1440
+    tags: [apache]
+
+  - id: github_blog
+    name: GitHub Blog
+    type: rss
+    url: https://github.blog/feed/
+    category: 基金会/企业博客
+    enabled: true
+    frequency_minutes: 1440
+    tags: [github]
+
+  - id: gitlab_blog
+    name: GitLab Blog
+    type: rss
+    url: https://about.gitlab.com/atom.xml
+    category: 基金会/企业博客
+    enabled: true
+    frequency_minutes: 1440
+    tags: [gitlab]
+
+  - id: google_open_source_blog
+    name: Google Open Source Blog
+    type: rss
+    url: https://opensource.googleblog.com/feeds/posts/default
+    category: 基金会/企业博客
+    enabled: false
+    frequency_minutes: 1440
+    tags: [google]
+
+  - id: microsoft_open_source_blog
+    name: Microsoft Open Source Blog
+    type: rss
+    url: https://opensource.microsoft.com/blog/feed/
+    category: 基金会/企业博客
+    enabled: true
+    frequency_minutes: 1440
+    tags: [microsoft]
+
+  - id: aws_open_source_blog
+    name: AWS Open Source Blog
+    type: rss
+    url: https://aws.amazon.com/blogs/opensource/feed/
+    category: 基金会/企业博客
+    enabled: true
+    frequency_minutes: 1440
+    tags: [aws]
+
+  - id: mastodon_opensource
+    name: "Mastodon #opensource"
+    type: mastodon_tag
+    url: https://mastodon.social/tags/opensource.rss
+    category: KOL 社交媒体
+    enabled: true
+    frequency_minutes: 360
+    tags: [mastodon, opensource]
+
+  - id: mastodon_foss
+    name: "Mastodon #foss"
+    type: mastodon_tag
+    url: https://mastodon.social/tags/foss.rss
+    category: KOL 社交媒体
+    enabled: true
+    frequency_minutes: 360
+    tags: [mastodon, foss]
+
+  - id: mastodon_linux
+    name: "Mastodon #linux"
+    type: mastodon_tag
+    url: https://mastodon.social/tags/linux.rss
+    category: KOL 社交媒体
+    enabled: true
+    frequency_minutes: 360
+    tags: [mastodon, linux]
+
+  - id: cncf_youtube
+    name: CNCF YouTube
+    type: youtube_rss
+    url: https://www.youtube.com/feeds/videos.xml?channel_id=UCvqbFHwN-nwalWPjPUKpvTA
+    category: 视频平台
+    enabled: true
+    frequency_minutes: 1440
+    tags: [youtube, cncf]
+
+  - id: linux_foundation_youtube
+    name: Linux Foundation YouTube
+    type: youtube_rss
+    url: https://www.youtube.com/feeds/videos.xml?channel_id=UCfX55Sx5hEFjoC3cNs6mCUQ
+    category: 视频平台
+    enabled: true
+    frequency_minutes: 1440
+    tags: [youtube, linux-foundation]
+
+  - id: twitter_open_source_kol
+    name: Twitter/X OpenSourceKOL
+    type: twitter_api_list
+    url: OpenSourceKOL
+    category: KOL 社交媒体
+    enabled: false
+    frequency_minutes: 360
+    tags: [twitter, kol]
+    config_file: configs/kol_twitter_list.yaml
+    bearer_token_env: TWITTER_BEARER_TOKEN
+    list_id_env: TWITTER_OPEN_SOURCE_KOL_LIST_ID
+    max_results: 50

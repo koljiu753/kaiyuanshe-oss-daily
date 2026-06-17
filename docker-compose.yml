@@ -1,0 +1,20 @@
+services:
+  osdaily:
+    build: .
+    ports:
+      - "8765:8765"
+    environment:
+      CONTACT_EMAIL: "${CONTACT_EMAIL:-opensource-daily@example.org}"
+      DAILY_WEBHOOK_URL: "${DAILY_WEBHOOK_URL:-}"
+      DAILY_WEBHOOK_TYPE: "${DAILY_WEBHOOK_TYPE:-generic}"
+      OPENAI_API_KEY: "${OPENAI_API_KEY:-}"
+      OPENAI_MODEL: "${OPENAI_MODEL:-gpt-4.1-mini}"
+      TWITTER_BEARER_TOKEN: "${TWITTER_BEARER_TOKEN:-}"
+      TWITTER_OPEN_SOURCE_KOL_LIST_ID: "${TWITTER_OPEN_SOURCE_KOL_LIST_ID:-}"
+      ADMIN_TOKEN: "${ADMIN_TOKEN:-}"
+      SCHEDULE_TIME: "${SCHEDULE_TIME:-06:00}"
+    volumes:
+      - ./data:/app/data
+      - ./output:/app/output
+      - ./configs:/app/configs:ro
+    command: ["python", "-m", "osdaily.cli", "serve", "--host", "0.0.0.0", "--port", "8765", "--schedule", "--schedule-time", "${SCHEDULE_TIME:-06:00}", "--notify"]

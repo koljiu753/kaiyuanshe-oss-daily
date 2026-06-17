@@ -1,0 +1,111 @@
+relevance_keywords:
+  - open source
+  - opensource
+  - 开源
+  - FOSS
+  - free software
+  - Apache
+  - MIT license
+  - GPL
+  - LGPL
+  - AGPL
+  - Linux
+  - CNCF
+  - GitHub
+  - GitLab
+  - Kubernetes
+  - container
+  - Rust
+  - Python
+  - SBOM
+  - supply chain
+  - license
+  - foundation
+  - community
+
+blacklist_keywords:
+  - sponsored post
+  - paid promotion
+  - hiring
+  - job opening
+  - apply now
+  - webinar registration
+  - coupon
+
+categories:
+  AI 开源:
+    - AI
+    - artificial intelligence
+    - machine learning
+    - LLM
+    - model
+    - Hugging Face
+    - PyTorch
+    - TensorFlow
+  云原生/容器:
+    - Kubernetes
+    - CNCF
+    - container
+    - Docker
+    - Helm
+    - Envoy
+    - Istio
+    - Prometheus
+    - cloud native
+  开源合规与许可证:
+    - license
+    - licensing
+    - GPL
+    - AGPL
+    - Apache License
+    - MIT license
+    - compliance
+    - copyright
+    - SBOM
+  开源商业/公司动态:
+    - company
+    - startup
+    - funding
+    - acquisition
+    - enterprise
+    - commercial
+    - revenue
+    - business
+  社区/基金会:
+    - foundation
+    - community
+    - maintainer
+    - governance
+    - Apache Software Foundation
+    - Linux Foundation
+    - CNCF
+  编程语言与框架:
+    - Python
+    - Rust
+    - JavaScript
+    - TypeScript
+    - Go
+    - Java
+    - Ruby
+    - framework
+    - release
+  安全:
+    - security
+    - vulnerability
+    - CVE
+    - supply chain
+    - malware
+    - exploit
+    - patch
+  硬件开源:
+    - open hardware
+    - RISC-V
+    - firmware
+    - embedded
+    - chip
+    - FPGA
+  综合:
+    - open source
+    - opensource
+    - FOSS
+    - 开源

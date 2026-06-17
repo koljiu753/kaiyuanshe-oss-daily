@@ -1,0 +1,14 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+src/*.egg-info/
+data/smoke.sqlite3*
+data/*test*.sqlite3*
+output/smoke/
+output/*test*/
+output/admin-test/
+output/admin-preview.png
+output/admin-control-preview.png
+output/ui-*.png
+output/edited/
