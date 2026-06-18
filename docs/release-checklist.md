@@ -18,6 +18,7 @@ python -m osdaily.cli quality --days 7
 - `data/osdaily.sqlite3` 存在并可被管理界面读取。
 - `Dockerfile` 和 `docker-compose.yml` 存在。
 - `docker-compose.prod.yml`、`Caddyfile`、`.env.production.example` 存在。
+- `render.yaml` 和 `docs/render-deployment.md` 存在。
 - `scripts/deploy-prod.sh` 和 `scripts/backup-data.sh` 存在。
 - 管理站点 `/healthz` 返回 `{"ok": true}`。
 

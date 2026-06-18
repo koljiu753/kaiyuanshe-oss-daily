@@ -11,6 +11,8 @@ COPY configs ./configs
 
 RUN python -m pip install --no-cache-dir -e .
 
+ENV PORT=8765
+
 EXPOSE 8765
 
-CMD ["python", "-m", "osdaily.cli", "serve", "--host", "0.0.0.0", "--port", "8765"]
+CMD ["python", "-m", "osdaily.cli", "serve", "--host", "0.0.0.0", "--schedule", "--schedule-time", "06:00", "--notify"]

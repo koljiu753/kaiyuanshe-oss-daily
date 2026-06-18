@@ -1,0 +1,41 @@
+services:
+  - type: web
+    name: kaiyuanshe-oss-daily
+    runtime: docker
+    plan: free
+    branch: main
+    autoDeploy: true
+    healthCheckPath: /healthz
+    disk:
+      name: osdaily-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: PORT
+        value: 8765
+      - key: CONTACT_EMAIL
+        sync: false
+      - key: ADMIN_TOKEN
+        sync: false
+      - key: SCHEDULE_TIME
+        value: 06:00
+      - key: DAILY_WEBHOOK_URL
+        sync: false
+      - key: DAILY_WEBHOOK_TYPE
+        value: generic
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: OPENAI_MODEL
+        value: gpt-4.1-mini
+      - key: TWITTER_BEARER_TOKEN
+        sync: false
+      - key: TWITTER_OPEN_SOURCE_KOL_LIST_ID
+        sync: false
+    dockerCommand: >-
+      python -m osdaily.cli serve
+      --host 0.0.0.0
+      --db /var/data/osdaily.sqlite3
+      --output /var/data/output
+      --schedule
+      --schedule-time 06:00
+      --notify

@@ -23,10 +23,12 @@
 - pytest 测试覆盖核心处理、存储、渲染、通知、告警和管理辅助逻辑。
 - Docker / Docker Compose 部署文件。
 - 生产部署配置：Caddy 自动 HTTPS、`docker-compose.prod.yml`、`.env.production.example`、部署和备份脚本。
+- Render Blueprint：可从 GitHub 直接部署到 Render。
 
 ## 工程文档
 
 - [部署指南](docs/deployment.md)
+- [Render 部署指南](docs/render-deployment.md)
 - [架构说明](docs/architecture.md)
 - [发布检查清单](docs/release-checklist.md)
 

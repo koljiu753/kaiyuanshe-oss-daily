@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import json
 import logging
+import os
 from pathlib import Path
 
 from .admin import serve_admin
@@ -28,7 +29,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--min-items", type=int, default=5, help="Warn when accepted item count is below this number.")
     parser.add_argument("--max-items", type=int, default=120, help="Warn when accepted item count is above this number.")
     parser.add_argument("--host", default="127.0.0.1", help="Admin server host for the serve command.")
-    parser.add_argument("--port", type=int, default=8765, help="Admin server port for the serve command.")
+    parser.add_argument("--port", type=int, default=int(os.getenv("PORT", "8765")), help="Admin server port for the serve command.")
     parser.add_argument("--schedule", action="store_true", help="Run the collection pipeline daily while serving the admin site.")
     parser.add_argument("--schedule-time", default="06:00", help="Daily schedule time in local HH:MM, used with --schedule.")
     parser.add_argument("--log-level", default="INFO")
