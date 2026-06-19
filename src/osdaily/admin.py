@@ -852,21 +852,28 @@ HTML = r"""<!doctype html>
     async function translateCurrentIfNeeded() {
       const item = state.current;
       if (!item || !shouldShowChinese() || !needsChineseTranslation(item)) return;
+      state.translating = state.translating || new Set();
+      if (state.translating.has(item.id)) return;
+      state.translating.add(item.id);
       showStatus('正在翻译当前条目...');
-      const res = await fetch(apiUrl(`/api/items/${item.id}/translate`), {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({})
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        showStatus(data.error || '翻译失败，请检查 API Key 和 Render 日志', true);
-        return;
+      try {
+        const res = await fetch(apiUrl(`/api/items/${item.id}/translate`), {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({})
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          showStatus(data.error || '翻译失败，请检查 API Key 和 Render 日志', true);
+          return;
+        }
+        Object.assign(item, data.item);
+        showStatus('翻译完成');
+        renderList();
+        openItem(item.id);
+      } finally {
+        state.translating.delete(item.id);
       }
-      Object.assign(item, data.item);
-      showStatus('翻译完成');
-      renderList();
-      openItem(item.id);
     }
 
     filteredItems = function() {
@@ -926,6 +933,9 @@ HTML = r"""<!doctype html>
       $('status').textContent = '';
       renderPreview();
       renderList();
+      if (shouldShowChinese() && needsChineseTranslation(item)) {
+        setTimeout(() => translateCurrentIfNeeded(), 0);
+      }
     };
 
     renderPreview = function() {
