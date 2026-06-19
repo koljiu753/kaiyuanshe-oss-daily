@@ -77,6 +77,7 @@ def process_items(
     for item in items:
         item.url = normalize_url(item.url)
         if store.seen_url(item.normalized_url()):
+            store.backfill_raw_fields(item)
             stats["seen_url"] += 1
             continue
         if is_blacklisted(item, blacklist):

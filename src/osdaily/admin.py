@@ -800,6 +800,101 @@ HTML = r"""<!doctype html>
     }
 
     mountRunOptions();
+
+    function shouldShowChinese() {
+      return !$('translateRun') || $('translateRun').checked;
+    }
+
+    function displayTitle(item) {
+      return shouldShowChinese() ? (item.title || item.raw_title || '') : (item.raw_title || item.title || '');
+    }
+
+    function displaySummary(item) {
+      return shouldShowChinese() ? (item.summary || item.raw_summary || '') : (item.raw_summary || item.summary || '');
+    }
+
+    filteredItems = function() {
+      const q = $('q').value.trim().toLowerCase();
+      const cat = $('category').value;
+      const curation = $('curationFilter').value;
+      return state.items.filter(item => {
+        const blob = [
+          item.title, item.summary, item.raw_title, item.raw_summary,
+          item.source_name, item.category, item.editor_note, (item.tags || []).join(',')
+        ].join(' ').toLowerCase();
+        return (!cat || item.category === cat)
+          && (!curation || (item.curation_status || 'candidate') === curation)
+          && (!q || blob.includes(q));
+      });
+    };
+
+    renderList = function() {
+      const items = filteredItems();
+      const accepted = state.items.filter(i => (i.curation_status || 'candidate') === 'accepted').length;
+      const candidate = state.items.filter(i => (i.curation_status || 'candidate') === 'candidate').length;
+      const rejected = state.items.filter(i => (i.curation_status || 'candidate') === 'rejected').length;
+      $('total').textContent = `${items.length} 条`;
+      $('checked').textContent = `${state.selected.size} 已选`;
+      $('saved').textContent = `采用 ${accepted} / 备选 ${candidate} / 舍弃 ${rejected}`;
+      $('list').innerHTML = items.map(item => `
+        <div class="row ${state.current && state.current.id === item.id ? 'active' : ''}" data-id="${item.id}">
+          <input type="checkbox" data-pick="${item.id}" ${state.selected.has(item.id) ? 'checked' : ''}>
+          <div>
+            <div class="row-title">${escapeHtml(displayTitle(item))}</div>
+            <div class="row-summary">${escapeHtml(displaySummary(item) || '暂无摘要')}</div>
+            <div class="meta">
+              <span>${escapeHtml(item.source_name)}</span>
+              <span>${escapeHtml(item.category || '综合')}</span>
+              <span class="tag ${escapeHtml(item.curation_status || 'candidate')}">${escapeHtml(statusLabel(item.curation_status))}</span>
+              ${(item.tags || []).slice(0, 4).map(t => `<span class="tag">${escapeHtml(t)}</span>`).join('')}
+            </div>
+          </div>
+        </div>
+      `).join('');
+    };
+
+    openItem = function(id) {
+      const item = state.items.find(i => i.id === id);
+      if (!item) return;
+      state.current = item;
+      $('empty').hidden = true;
+      $('form').hidden = false;
+      $('title').value = displayTitle(item) || '';
+      $('summary').value = displaySummary(item) || '';
+      $('editCategory').value = item.category || '';
+      $('tags').value = (item.tags || []).join(', ');
+      $('curationStatus').value = item.curation_status || 'candidate';
+      $('editorNote').value = item.editor_note || '';
+      $('url').textContent = item.url;
+      $('url').href = item.url;
+      $('status').textContent = '';
+      renderPreview();
+      renderList();
+    };
+
+    renderPreview = function() {
+      const item = state.current;
+      if (!item) return;
+      $('preview').innerHTML = `
+        <strong>${escapeHtml($('title').value)}</strong><br>
+        摘要：${escapeHtml($('summary').value)}<br>
+        来源：${escapeHtml(item.source_name)} | 状态：${escapeHtml(statusLabel($('curationStatus').value))} | 标签：${escapeHtml($('tags').value)}
+      `;
+    };
+
+    statusLabel = function(status) {
+      return {
+        accepted: '采用',
+        candidate: '备选',
+        rejected: '舍弃'
+      }[status || 'candidate'] || '备选';
+    };
+
+    $('translateRun').addEventListener('change', () => {
+      renderList();
+      if (state.current) openItem(state.current.id);
+    });
+
     $('list').addEventListener('click', event => {
       const pick = event.target.closest('[data-pick]');
       if (pick) {

@@ -16,6 +16,8 @@ CREATE TABLE IF NOT EXISTS items (
   url TEXT NOT NULL,
   title TEXT NOT NULL,
   summary TEXT,
+  raw_title TEXT,
+  raw_summary TEXT,
   source_id TEXT NOT NULL,
   source_name TEXT NOT NULL,
   published_at TEXT,
@@ -56,6 +58,8 @@ class Store:
     def _migrate(self) -> None:
         columns = {row[1] for row in self.conn.execute("PRAGMA table_info(items)").fetchall()}
         migrations = [
+            ("raw_title", "ALTER TABLE items ADD COLUMN raw_title TEXT"),
+            ("raw_summary", "ALTER TABLE items ADD COLUMN raw_summary TEXT"),
             ("curation_status", "ALTER TABLE items ADD COLUMN curation_status TEXT NOT NULL DEFAULT 'candidate'"),
             ("editor_note", "ALTER TABLE items ADD COLUMN editor_note TEXT NOT NULL DEFAULT ''"),
             ("updated_at", "ALTER TABLE items ADD COLUMN updated_at TEXT"),
@@ -76,20 +80,44 @@ class Store:
         )
         return cur.fetchone() is not None
 
+    def backfill_raw_fields(self, item: NewsItem) -> bool:
+        raw_title = item.raw_title or item.title
+        raw_summary = item.raw_summary or item.summary
+        cur = self.conn.execute(
+            """
+            UPDATE items
+            SET raw_title = COALESCE(NULLIF(raw_title, ''), ?),
+                raw_summary = COALESCE(NULLIF(raw_summary, ''), ?),
+                updated_at = ?
+            WHERE url_hash = ?
+            """,
+            (
+                raw_title,
+                raw_summary,
+                datetime.now(timezone.utc).isoformat(),
+                self.url_hash(item.normalized_url()),
+            ),
+        )
+        self.conn.commit()
+        return cur.rowcount > 0
+
     def insert_item(self, item: NewsItem) -> bool:
         try:
             self.conn.execute(
                 """
                 INSERT INTO items (
-                  url_hash, url, title, summary, source_id, source_name,
-                  published_at, author, category, tags_json, related_urls_json, created_at
-                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                  url_hash, url, title, summary, raw_title, raw_summary,
+                  source_id, source_name, published_at, author, category,
+                  tags_json, related_urls_json, created_at
+                ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                 (
                     self.url_hash(item.normalized_url()),
                     item.normalized_url(),
                     item.title,
                     item.summary,
+                    item.raw_title or item.title,
+                    item.raw_summary or item.summary,
                     item.source_id,
                     item.source_name,
                     item.published_at.isoformat() if item.published_at else None,
@@ -126,8 +154,8 @@ class Store:
     def list_items(self, limit: int = 300) -> list[NewsItem]:
         cur = self.conn.execute(
             """
-            SELECT url, title, summary, source_id, source_name, published_at, author,
-                   category, tags_json, related_urls_json
+            SELECT url, title, summary, raw_title, raw_summary, source_id, source_name,
+                   published_at, author, category, tags_json, related_urls_json
             FROM items
             ORDER BY COALESCE(published_at, created_at) DESC, id DESC
             LIMIT ?
@@ -139,8 +167,9 @@ class Store:
     def list_item_records(self, limit: int = 300) -> list[dict]:
         cur = self.conn.execute(
             """
-            SELECT id, url, title, summary, source_id, source_name, published_at, author,
-                   category, tags_json, related_urls_json, curation_status, editor_note, updated_at, created_at
+            SELECT id, url, title, summary, raw_title, raw_summary, source_id, source_name,
+                   published_at, author, category, tags_json, related_urls_json,
+                   curation_status, editor_note, updated_at, created_at
             FROM items
             ORDER BY COALESCE(published_at, created_at) DESC, id DESC
             LIMIT ?
@@ -155,8 +184,9 @@ class Store:
         placeholders = ",".join("?" for _ in ids)
         cur = self.conn.execute(
             f"""
-            SELECT id, url, title, summary, source_id, source_name, published_at, author,
-                   category, tags_json, related_urls_json, curation_status, editor_note, updated_at, created_at
+            SELECT id, url, title, summary, raw_title, raw_summary, source_id, source_name,
+                   published_at, author, category, tags_json, related_urls_json,
+                   curation_status, editor_note, updated_at, created_at
             FROM items
             WHERE id IN ({placeholders})
             ORDER BY category, COALESCE(published_at, created_at) DESC
@@ -228,40 +258,45 @@ class Store:
             url=row[0],
             title=row[1],
             summary=row[2] or "",
-            source_id=row[3],
-            source_name=row[4],
-            published_at=datetime.fromisoformat(row[5]) if row[5] else None,
-            author=row[6] or "",
-            category=row[7] or "综合",
-            tags=self._loads_list(row[8]),
-            related_urls=self._loads_list(row[9]),
+            raw_title=row[3] or row[1],
+            raw_summary=row[4] or row[2] or "",
+            source_id=row[5],
+            source_name=row[6],
+            published_at=datetime.fromisoformat(row[7]) if row[7] else None,
+            author=row[8] or "",
+            category=row[9] or "综合",
+            tags=self._loads_list(row[10]),
+            related_urls=self._loads_list(row[11]),
         )
 
     def _row_to_record(self, row: tuple) -> dict:
-        record = {
+        return {
             "id": row[0],
             "url": row[1],
             "title": row[2],
             "summary": row[3] or "",
-            "source_id": row[4],
-            "source_name": row[5],
-            "published_at": row[6],
-            "author": row[7] or "",
-            "category": row[8] or "综合",
-            "tags": self._loads_list(row[9]),
-            "related_urls": self._loads_list(row[10]),
-            "curation_status": row[11] or "candidate",
-            "editor_note": row[12] or "",
-            "updated_at": row[13],
-            "created_at": row[14],
+            "raw_title": row[4] or row[2],
+            "raw_summary": row[5] or row[3] or "",
+            "source_id": row[6],
+            "source_name": row[7],
+            "published_at": row[8],
+            "author": row[9] or "",
+            "category": row[10] or "综合",
+            "tags": self._loads_list(row[11]),
+            "related_urls": self._loads_list(row[12]),
+            "curation_status": row[13] or "candidate",
+            "editor_note": row[14] or "",
+            "updated_at": row[15],
+            "created_at": row[16],
         }
-        return record
 
     def _record_to_item(self, record: dict) -> NewsItem:
         return NewsItem(
             url=record["url"],
             title=record["title"],
             summary=record["summary"],
+            raw_title=record["raw_title"],
+            raw_summary=record["raw_summary"],
             source_id=record["source_id"],
             source_name=record["source_name"],
             published_at=datetime.fromisoformat(record["published_at"]) if record["published_at"] else None,
