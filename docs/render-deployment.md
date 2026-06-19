@@ -39,11 +39,22 @@ ADMIN_TOKEN=一段足够长的随机口令
 PORT=8765
 ```
 
-启用中文翻译和摘要改写：
+启用中文翻译和摘要改写。推荐先用 DeepSeek：
 
 ```text
-OPENAI_API_KEY=你的 OpenAI API Key
-OPENAI_MODEL=gpt-4.1-mini
+TRANSLATION_PROVIDER=deepseek
+DEEPSEEK_API_KEY=你的 DeepSeek API Key
+DEEPSEEK_MODEL=deepseek-v4-flash
+TRANSLATE_ENABLED=true
+REWRITE_SUMMARY_ENABLED=true
+```
+
+如果改用 Moonshot/Kimi：
+
+```text
+TRANSLATION_PROVIDER=moonshot
+MOONSHOT_API_KEY=你的 Moonshot API Key
+MOONSHOT_MODEL=kimi-k2.6
 TRANSLATE_ENABLED=true
 REWRITE_SUMMARY_ENABLED=true
 ```
@@ -92,5 +103,5 @@ https://kaiyuanshe-oss-daily.onrender.com/healthz
 
 - Render 免费实例无人访问后会休眠，首次打开可能需要等待 30-60 秒。
 - 免费实例本地文件不保证长期保存，生产建议使用 Persistent Disk。
-- 如果没有配置 `OPENAI_API_KEY`，系统仍会采集和导出 Markdown，但会跳过中文翻译并在运行告警里提示。
+- 如果没有配置对应 provider 的 API Key，系统仍会采集和导出 Markdown，但会跳过中文翻译并在运行告警里提示。
 - 定时任务默认每天 `06:00` 运行，Render 环境通常按 UTC 运行；如果要精确北京时间，可以把时间换算成 UTC，或后续迁移到更可控的调度环境。

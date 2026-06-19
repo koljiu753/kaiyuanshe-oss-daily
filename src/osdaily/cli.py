@@ -35,7 +35,12 @@ def build_parser() -> argparse.ArgumentParser:
         default=env_flag("TRANSLATE_ENABLED"),
         help="Translate accepted English items into Simplified Chinese.",
     )
-    parser.add_argument("--translate-provider", default="openai", choices=["openai"], help="Translation provider.")
+    parser.add_argument(
+        "--translate-provider",
+        default=os.getenv("TRANSLATION_PROVIDER", "deepseek"),
+        choices=["openai", "deepseek", "moonshot"],
+        help="Translation provider.",
+    )
     parser.add_argument("--translation-limit", type=int, default=30, help="Maximum items to translate per run.")
     parser.add_argument(
         "--rewrite-summary",

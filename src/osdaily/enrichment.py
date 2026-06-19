@@ -13,6 +13,30 @@ from .storage import Store
 
 LOG = logging.getLogger(__name__)
 
+PROVIDERS = {
+    "openai": {
+        "api_key_env": "OPENAI_API_KEY",
+        "base_url_env": "OPENAI_BASE_URL",
+        "model_env": "OPENAI_MODEL",
+        "base_url": "https://api.openai.com/v1",
+        "model": "gpt-4.1-mini",
+    },
+    "deepseek": {
+        "api_key_env": "DEEPSEEK_API_KEY",
+        "base_url_env": "DEEPSEEK_BASE_URL",
+        "model_env": "DEEPSEEK_MODEL",
+        "base_url": "https://api.deepseek.com",
+        "model": "deepseek-v4-flash",
+    },
+    "moonshot": {
+        "api_key_env": "MOONSHOT_API_KEY",
+        "base_url_env": "MOONSHOT_BASE_URL",
+        "model_env": "MOONSHOT_MODEL",
+        "base_url": "https://api.moonshot.ai/v1",
+        "model": "kimi-k2.6",
+    },
+}
+
 
 def looks_english(text: str) -> bool:
     letters = re.findall(r"[A-Za-z]", text)
@@ -34,18 +58,19 @@ def enrich_items(
 ) -> dict[str, int]:
     if provider in {"", "off", "none"}:
         return {"enriched": 0, "translated": 0, "rewritten": 0, "cached": 0, "skipped": len(items)}
-    if provider != "openai":
+    if provider not in PROVIDERS:
         raise ValueError(f"Unsupported translation provider: {provider}")
     if not translate and not rewrite_summary:
         return {"enriched": 0, "translated": 0, "rewritten": 0, "cached": 0, "skipped": len(items)}
-    if not os.getenv("OPENAI_API_KEY"):
+    client_config = resolve_provider(provider)
+    if not client_config["api_key"]:
         return {
             "enriched": 0,
             "translated": 0,
             "rewritten": 0,
             "cached": 0,
             "skipped": len(items),
-            "error": "OPENAI_API_KEY is required for Chinese translation.",
+            "error": f"{client_config['api_key_env']} is required for Chinese translation.",
         }
 
     enriched = 0
@@ -65,7 +90,7 @@ def enrich_items(
             apply_translation(item, cached_value[0], cached_value[1])
             cached += 1
             continue
-        title, summary = enrich_with_openai(item.title, item.summary, translate, rewrite_summary)
+        title, summary = enrich_with_llm(item.title, item.summary, translate, rewrite_summary, client_config)
         store.save_translation(key, title, summary)
         apply_translation(item, title, summary)
         enriched += 1
@@ -94,11 +119,26 @@ def apply_translation(item: NewsItem, title: str, summary: str) -> None:
     item.summary = summary.strip() or item.summary
 
 
-def enrich_with_openai(title: str, summary: str, translate: bool, rewrite_summary: bool) -> tuple[str, str]:
-    api_key = os.getenv("OPENAI_API_KEY")
-    if not api_key:
-        raise RuntimeError("OPENAI_API_KEY is required when OpenAI enrichment is enabled.")
-    model = os.getenv("OPENAI_MODEL", "gpt-4.1-mini")
+def resolve_provider(provider: str) -> dict[str, str]:
+    defaults = PROVIDERS[provider]
+    api_key_env = defaults["api_key_env"]
+    base_url = os.getenv("LLM_BASE_URL") or os.getenv(defaults["base_url_env"]) or defaults["base_url"]
+    return {
+        "provider": provider,
+        "api_key_env": api_key_env,
+        "api_key": os.getenv("LLM_API_KEY") or os.getenv(api_key_env) or "",
+        "base_url": base_url.rstrip("/"),
+        "model": os.getenv("LLM_MODEL") or os.getenv(defaults["model_env"]) or defaults["model"],
+    }
+
+
+def enrich_with_llm(
+    title: str,
+    summary: str,
+    translate: bool,
+    rewrite_summary: bool,
+    client_config: dict[str, str],
+) -> tuple[str, str]:
     if translate and rewrite_summary:
         instruction = (
             "Translate title into concise Simplified Chinese and rewrite the summary into 1-2 "
@@ -117,7 +157,7 @@ def enrich_with_openai(title: str, summary: str, translate: bool, rewrite_summar
         "instruction": instruction,
     }
     payload = {
-        "model": model,
+        "model": client_config["model"],
         "messages": [
             {
                 "role": "system",
@@ -128,9 +168,10 @@ def enrich_with_openai(title: str, summary: str, translate: bool, rewrite_summar
         "temperature": 0.2,
         "response_format": {"type": "json_object"},
     }
-    headers = {"Authorization": f"Bearer {api_key}", "Content-Type": "application/json"}
+    headers = {"Authorization": f"Bearer {client_config['api_key']}", "Content-Type": "application/json"}
+    url = f"{client_config['base_url']}/chat/completions"
     with httpx.Client(timeout=45) as client:
-        response = client.post("https://api.openai.com/v1/chat/completions", headers=headers, json=payload)
+        response = client.post(url, headers=headers, json=payload)
         response.raise_for_status()
     content = response.json()["choices"][0]["message"]["content"]
     data = json.loads(content)

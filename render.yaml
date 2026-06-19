@@ -23,14 +23,24 @@ services:
         sync: false
       - key: DAILY_WEBHOOK_TYPE
         value: generic
-      - key: OPENAI_API_KEY
-        sync: false
-      - key: OPENAI_MODEL
-        value: gpt-4.1-mini
+      - key: TRANSLATION_PROVIDER
+        value: deepseek
       - key: TRANSLATE_ENABLED
         value: true
       - key: REWRITE_SUMMARY_ENABLED
         value: true
+      - key: DEEPSEEK_API_KEY
+        sync: false
+      - key: DEEPSEEK_MODEL
+        value: deepseek-v4-flash
+      - key: MOONSHOT_API_KEY
+        sync: false
+      - key: MOONSHOT_MODEL
+        value: kimi-k2.6
+      - key: OPENAI_API_KEY
+        sync: false
+      - key: OPENAI_MODEL
+        value: gpt-4.1-mini
       - key: TWITTER_BEARER_TOKEN
         sync: false
       - key: TWITTER_OPEN_SOURCE_KOL_LIST_ID
