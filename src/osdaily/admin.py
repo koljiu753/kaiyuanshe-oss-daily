@@ -9,6 +9,7 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
+from . import __version__
 from .report import write_report
 from .quality import build_quality_report
 from .runner import RunOptions, run_pipeline
@@ -378,6 +379,14 @@ HTML = r"""<!doctype html>
       background: linear-gradient(135deg, #8b5cf6, #22d3ee);
       box-shadow: 0 0 22px rgba(124, 92, 255, .95);
     }
+    .version {
+      color: var(--muted);
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 2px 7px;
+      font-size: 12px;
+      font-weight: 700;
+    }
     input, select, textarea, button {
       background: rgba(255, 255, 255, .06);
       color: var(--ink);
@@ -572,6 +581,23 @@ HTML = r"""<!doctype html>
         <span>告警：${escapeHtml(quality.total_warnings ?? 0)}</span>
         <span style="grid-column: 1 / -1">失败源：${escapeHtml(failed)}</span>
       `;
+    }
+
+    async function loadVersion() {
+      try {
+        const res = await fetch(apiUrl('/api/version'));
+        if (!res.ok) return;
+        const data = await res.json();
+        const title = document.querySelector('h1');
+        if (title && data.version && !title.querySelector('.version')) {
+          const badge = document.createElement('span');
+          badge.className = 'version';
+          badge.textContent = `v${data.version}`;
+          title.appendChild(badge);
+        }
+      } catch (error) {
+        return;
+      }
     }
 
     function renderRunPanel(summary, runState) {
@@ -924,6 +950,7 @@ HTML = r"""<!doctype html>
     loadSummary();
     loadReports();
     loadQuality();
+    loadVersion();
   </script>
 </body>
 </html>
@@ -1069,7 +1096,10 @@ def build_handler(
         def do_GET(self) -> None:
             parsed = urlparse(self.path)
             if parsed.path == "/healthz":
-                self.send_json({"ok": True})
+                self.send_json({"ok": True, "version": __version__})
+                return
+            if parsed.path == "/api/version":
+                self.send_json({"version": __version__, "features": ["raw-source-toggle", "llm-provider-switch"]})
                 return
             if parsed.path == "/":
                 if not self.is_authorized():
