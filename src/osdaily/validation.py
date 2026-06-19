@@ -5,6 +5,19 @@ from pathlib import Path
 from .config import load_rules, load_sources, load_yaml
 
 
+SUPPORTED_SOURCE_TYPES = {
+    "rss",
+    "atom",
+    "reddit_rss",
+    "lobsters_rss",
+    "mastodon_tag",
+    "youtube_rss",
+    "twitter_api_list",
+    "api",
+    "web",
+}
+
+
 def validate_project(sources_path: Path, rules_path: Path, kol_path: Path = Path("configs/kol_twitter_list.yaml")) -> dict:
     errors: list[str] = []
     warnings: list[str] = []
@@ -25,7 +38,7 @@ def validate_project(sources_path: Path, rules_path: Path, kol_path: Path = Path
             errors.append(f"{source.id} 缺少 name")
         if not source.type:
             errors.append(f"{source.id} 缺少 type")
-        if source.type not in {"rss", "atom", "reddit_rss", "lobsters_rss", "mastodon_tag", "youtube_rss", "twitter_api_list", "api", "web"}:
+        if source.type not in SUPPORTED_SOURCE_TYPES:
             warnings.append(f"{source.id} 使用未知 type：{source.type}")
         if source.type != "twitter_api_list" and not source.url:
             errors.append(f"{source.id} 缺少 url")

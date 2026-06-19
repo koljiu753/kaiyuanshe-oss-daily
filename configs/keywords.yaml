@@ -1,5 +1,6 @@
 relevance_keywords:
   - open source
+  - open-source
   - opensource
   - 开源
   - FOSS
@@ -31,6 +32,7 @@ blacklist_keywords:
   - apply now
   - webinar registration
   - coupon
+  - discount code
 
 categories:
   AI 开源:
@@ -106,6 +108,7 @@ categories:
     - FPGA
   综合:
     - open source
+    - open-source
     - opensource
     - FOSS
     - 开源

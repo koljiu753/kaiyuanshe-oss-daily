@@ -2,14 +2,17 @@ from __future__ import annotations
 
 import logging
 import os
+import urllib.robotparser
 import time
+import warnings
 from datetime import datetime, timezone
 from email.utils import parsedate_to_datetime
 from typing import Iterable
+from urllib.parse import urljoin, urlparse
 
 import feedparser
 import httpx
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup, MarkupResemblesLocatorWarning
 from dateutil import parser as date_parser
 
 from .models import NewsItem, Source
@@ -39,7 +42,9 @@ def parse_datetime(value: object) -> datetime | None:
 def clean_html(value: str | None) -> str:
     if not value:
         return ""
-    soup = BeautifulSoup(value, "html.parser")
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore", MarkupResemblesLocatorWarning)
+        soup = BeautifulSoup(value, "html.parser")
     return " ".join(soup.get_text(" ", strip=True).split())
 
 
@@ -58,8 +63,10 @@ def collect_source(source: Source, since: datetime) -> list[NewsItem]:
         return collect_feed(source, since)
     if source.type == "twitter_api_list":
         return collect_twitter_list(source, since)
-    if source.type in {"api", "web"}:
-        LOG.info("Skipping configured %s source %s; collector adapter is not enabled yet.", source.type, source.id)
+    if source.type == "web":
+        return collect_web(source, since)
+    if source.type == "api":
+        LOG.info("Skipping configured API source %s; collector adapter is not enabled yet.", source.id)
         return []
     LOG.warning("Unknown source type %s for %s", source.type, source.id)
     return []
@@ -104,6 +111,83 @@ def collect_feed(source: Source, since: datetime) -> list[NewsItem]:
             )
         )
     return items
+
+
+def robots_allowed(url: str, user_agent_value: str) -> bool:
+    parsed = urlparse(url)
+    robots_url = f"{parsed.scheme}://{parsed.netloc}/robots.txt"
+    parser = urllib.robotparser.RobotFileParser()
+    parser.set_url(robots_url)
+    try:
+        parser.read()
+    except Exception as exc:
+        LOG.info("Could not read robots.txt for %s: %s", url, exc)
+        return True
+    return parser.can_fetch(user_agent_value, url)
+
+
+def collect_web(source: Source, since: datetime) -> list[NewsItem]:
+    if not source.url:
+        return []
+    ua = user_agent()
+    if not robots_allowed(source.url, ua):
+        LOG.info("Skipping %s; robots.txt disallows %s", source.id, source.url)
+        return []
+
+    response = fetch_url(source.url, headers={"User-Agent": ua})
+    soup = BeautifulSoup(response.text, "html.parser")
+    max_results = int(source.metadata.get("max_results", 20))
+    items: list[NewsItem] = []
+    seen: set[str] = set()
+    for anchor in soup.find_all("a", href=True):
+        title = clean_html(anchor.get_text(" ", strip=True))
+        if len(title) < 12:
+            continue
+        link = urljoin(source.url, anchor["href"])
+        if not is_probable_article_link(source.url, link):
+            continue
+        normalized = link.split("#", 1)[0]
+        if normalized in seen:
+            continue
+        seen.add(normalized)
+        summary = extract_nearby_text(anchor)
+        items.append(
+            NewsItem(
+                title=title[:180],
+                raw_title=title[:180],
+                url=normalized,
+                source_id=source.id,
+                source_name=source.name,
+                published_at=None,
+                summary=summary[:700],
+                raw_summary=summary[:700],
+                category=source.category,
+                tags=list(source.tags),
+            )
+        )
+        if len(items) >= max_results:
+            break
+    return items
+
+
+def is_probable_article_link(base_url: str, link: str) -> bool:
+    base = urlparse(base_url)
+    parsed = urlparse(link)
+    if parsed.scheme not in {"http", "https"} or parsed.netloc != base.netloc:
+        return False
+    path = parsed.path.strip("/")
+    if not path or path in {"software", "software/open_source"}:
+        return False
+    blocked_ext = (".jpg", ".jpeg", ".png", ".gif", ".svg", ".webp", ".pdf", ".zip")
+    return not parsed.path.lower().endswith(blocked_ext)
+
+
+def extract_nearby_text(anchor) -> str:
+    parent = anchor.find_parent(["article", "li", "div"]) or anchor.parent
+    if not parent:
+        return ""
+    text = clean_html(parent.get_text(" ", strip=True))
+    return text[:700]
 
 
 def fetch_url(url: str, headers: dict[str, str], retries: int = 2, backoff_seconds: float = 2.0) -> httpx.Response:

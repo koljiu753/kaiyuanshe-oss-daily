@@ -4,6 +4,7 @@ kol_twitter_list:
   fetch_method: twitter_api_list
   env:
     bearer_token: TWITTER_BEARER_TOKEN
+    list_id: TWITTER_OPEN_SOURCE_KOL_LIST_ID
   filter_keywords:
     - open source
     - Linux

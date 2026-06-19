@@ -24,6 +24,7 @@ REQUIRED_FILES = [
     "docs/render-deployment.md",
     "docs/architecture.md",
     "docs/release-checklist.md",
+    "docs/acceptance-matrix.md",
     "scripts/deploy-prod.sh",
     "scripts/backup-data.sh",
 ]
@@ -66,6 +67,21 @@ def build_readiness_report(root: Path = Path(".")) -> dict[str, Any]:
     }
     checks.append(check("docs_nonempty", all(size > 500 for size in docs.values()), docs))
 
+    checked_text_files = [
+        "README.md",
+        "configs/sources.yaml",
+        "configs/keywords.yaml",
+        "configs/kol_twitter_list.yaml",
+        "docs/render-deployment.md",
+    ]
+    mojibake = find_mojibake(root, checked_text_files)
+    checks.append(check("no_mojibake_in_delivery_files", not mojibake, {"files": mojibake}))
+
+    source_types = sorted({source.type for source in load_sources_if_present(root / "configs/sources.yaml")})
+    required_types = {"rss", "reddit_rss", "lobsters_rss", "mastodon_tag", "youtube_rss", "twitter_api_list", "web"}
+    missing_types = sorted(required_types - set(source_types))
+    checks.append(check("source_type_coverage", not missing_types, {"types": source_types, "missing": missing_types}))
+
     passed = sum(1 for item in checks if item["ok"])
     return {
         "ok": passed == len(checks),
@@ -77,3 +93,24 @@ def build_readiness_report(root: Path = Path(".")) -> dict[str, Any]:
 
 def check(name: str, ok: bool, details: dict[str, Any]) -> dict[str, Any]:
     return {"name": name, "ok": ok, "details": details}
+
+
+def find_mojibake(root: Path, files: list[str]) -> list[str]:
+    suspicious = ("锛", "鏃", "婧", "绋", "煎", "彇", "惧", "澶", "€")
+    bad: list[str] = []
+    for name in files:
+        path = root / name
+        if not path.exists():
+            continue
+        text = path.read_text(encoding="utf-8", errors="ignore")
+        if any(token in text for token in suspicious):
+            bad.append(name)
+    return bad
+
+
+def load_sources_if_present(path: Path):
+    if not path.exists():
+        return []
+    from .config import load_sources
+
+    return load_sources(path)

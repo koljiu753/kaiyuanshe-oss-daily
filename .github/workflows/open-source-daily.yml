@@ -39,7 +39,15 @@ jobs:
         env:
           CONTACT_EMAIL: ${{ secrets.CONTACT_EMAIL }}
           DAILY_WEBHOOK_URL: ${{ secrets.DAILY_WEBHOOK_URL }}
+          TRANSLATION_PROVIDER: ${{ vars.TRANSLATION_PROVIDER || 'deepseek' }}
+          TRANSLATE_ENABLED: ${{ vars.TRANSLATE_ENABLED || 'true' }}
+          REWRITE_SUMMARY_ENABLED: ${{ vars.REWRITE_SUMMARY_ENABLED || 'true' }}
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          DEEPSEEK_MODEL: ${{ vars.DEEPSEEK_MODEL || 'deepseek-v4-flash' }}
+          MOONSHOT_API_KEY: ${{ secrets.MOONSHOT_API_KEY }}
+          MOONSHOT_MODEL: ${{ vars.MOONSHOT_MODEL || 'kimi-k2.6' }}
           TWITTER_BEARER_TOKEN: ${{ secrets.TWITTER_BEARER_TOKEN }}
+          TWITTER_OPEN_SOURCE_KOL_LIST_ID: ${{ secrets.TWITTER_OPEN_SOURCE_KOL_LIST_ID }}
         run: |
           DAYS="${{ github.event.inputs.days || '1' }}"
           osdaily run --days "$DAYS" --notify

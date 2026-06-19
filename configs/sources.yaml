@@ -67,9 +67,10 @@ sources:
     type: web
     url: https://www.theregister.com/software/open_source/
     category: 科技媒体
-    enabled: false
+    enabled: true
     frequency_minutes: 1440
     tags: [media]
+    max_results: 20
 
   - id: hacker_news
     name: Hacker News
@@ -145,12 +146,13 @@ sources:
 
   - id: google_open_source_blog
     name: Google Open Source Blog
-    type: rss
-    url: https://opensource.googleblog.com/feeds/posts/default
+    type: web
+    url: https://opensource.googleblog.com/
     category: 基金会/企业博客
-    enabled: false
+    enabled: true
     frequency_minutes: 1440
     tags: [google]
+    max_results: 20
 
   - id: microsoft_open_source_blog
     name: Microsoft Open Source Blog

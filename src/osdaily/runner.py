@@ -26,7 +26,7 @@ class RunOptions:
     output: Path = Path("output/daily")
     notify: bool = False
     translate: bool = False
-    translate_provider: str = "openai"
+    translate_provider: str = "deepseek"
     translation_limit: int = 30
     rewrite_summary: bool = False
     min_items: int = 5

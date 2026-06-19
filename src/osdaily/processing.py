@@ -16,8 +16,9 @@ TRACKING_KEYS = {"fbclid", "gclid", "mc_cid", "mc_eid"}
 def normalize_url(url: str) -> str:
     parts = urlsplit(url.strip())
     query = [
-        (k, v) for k, v in parse_qsl(parts.query, keep_blank_values=True)
-        if not k.startswith(TRACKING_PREFIXES) and k not in TRACKING_KEYS
+        (key, value)
+        for key, value in parse_qsl(parts.query, keep_blank_values=True)
+        if not key.startswith(TRACKING_PREFIXES) and key not in TRACKING_KEYS
     ]
     path = parts.path.rstrip("/") or parts.path
     return urlunsplit((parts.scheme.lower(), parts.netloc.lower(), path, urlencode(query), ""))
@@ -29,7 +30,7 @@ def norm_text(value: str) -> str:
 
 def contains_any(text: str, keywords: list[str]) -> list[str]:
     haystack = norm_text(text)
-    return [kw for kw in keywords if kw.lower() in haystack]
+    return [keyword for keyword in keywords if keyword.lower() in haystack]
 
 
 def is_blacklisted(item: NewsItem, blacklist: list[str]) -> bool:
