@@ -57,6 +57,8 @@ def run_pipeline(options: RunOptions) -> dict:
         store.close()
 
     warning_messages = build_warnings(len(processed), source_stats, options.min_items, options.max_items)
+    if enrich_stats.get("error"):
+        warning_messages.append(str(enrich_stats["error"]))
     run_stats = {
         "generated_at": now.isoformat(),
         "lookback_days": options.days,

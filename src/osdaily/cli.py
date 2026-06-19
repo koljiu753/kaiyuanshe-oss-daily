@@ -13,6 +13,13 @@ from .runner import RunOptions, run_pipeline
 from .validation import validate_project
 
 
+def env_flag(name: str, default: bool = False) -> bool:
+    value = os.getenv(name)
+    if value is None:
+        return default
+    return value.strip().lower() in {"1", "true", "yes", "on"}
+
+
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(description="Generate an open-source news Markdown daily report.")
     parser.add_argument("command", choices=["run", "serve", "validate", "quality", "readiness"], help="Command to execute.")
@@ -22,10 +29,20 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument("--db", type=Path, default=Path("data/osdaily.sqlite3"))
     parser.add_argument("--output", type=Path, default=Path("output/daily"))
     parser.add_argument("--notify", action="store_true", help="Send webhook notification if DAILY_WEBHOOK_URL is set.")
-    parser.add_argument("--translate", action="store_true", help="Translate accepted English items into Simplified Chinese.")
+    parser.add_argument(
+        "--translate",
+        action="store_true",
+        default=env_flag("TRANSLATE_ENABLED"),
+        help="Translate accepted English items into Simplified Chinese.",
+    )
     parser.add_argument("--translate-provider", default="openai", choices=["openai"], help="Translation provider.")
     parser.add_argument("--translation-limit", type=int, default=30, help="Maximum items to translate per run.")
-    parser.add_argument("--rewrite-summary", action="store_true", help="Rewrite accepted item summaries into concise Chinese digest copy.")
+    parser.add_argument(
+        "--rewrite-summary",
+        action="store_true",
+        default=env_flag("REWRITE_SUMMARY_ENABLED"),
+        help="Rewrite accepted item summaries into concise Chinese digest copy.",
+    )
     parser.add_argument("--min-items", type=int, default=5, help="Warn when accepted item count is below this number.")
     parser.add_argument("--max-items", type=int, default=120, help="Warn when accepted item count is above this number.")
     parser.add_argument("--host", default="127.0.0.1", help="Admin server host for the serve command.")

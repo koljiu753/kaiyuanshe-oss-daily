@@ -30,17 +30,23 @@ def render_markdown(items: list[NewsItem], generated_at: datetime, stats: dict |
         process = stats.get("process", stats)
         enrichment = stats.get("enrichment", {})
         warnings = stats.get("warnings", [])
-        lines.extend([
-            "## 总览统计",
-            "",
-            f"- 入选：{process.get('accepted', len(items))}",
-            f"- URL 已入库跳过：{process.get('seen_url', 0)}",
-            f"- 相似标题合并：{process.get('similar_merged', 0)}",
-            f"- 相关性过滤：{process.get('irrelevant', 0)}",
-            f"- 黑名单过滤：{process.get('blacklisted', 0)}",
-            f"- 翻译：{enrichment.get('translated', 0)}，摘要重写：{enrichment.get('rewritten', 0)}，缓存命中：{enrichment.get('cached', 0)}",
-            "",
-        ])
+        lines.extend(
+            [
+                "## 总览统计",
+                "",
+                f"- 入选：{process.get('accepted', len(items))}",
+                f"- URL 已入库跳过：{process.get('seen_url', 0)}",
+                f"- 相似标题合并：{process.get('similar_merged', 0)}",
+                f"- 相关性过滤：{process.get('irrelevant', 0)}",
+                f"- 黑名单过滤：{process.get('blacklisted', 0)}",
+                (
+                    f"- 翻译：{enrichment.get('translated', 0)}，"
+                    f"摘要重写：{enrichment.get('rewritten', 0)}，"
+                    f"缓存命中：{enrichment.get('cached', 0)}"
+                ),
+                "",
+            ]
+        )
         if warnings:
             lines.extend(["## 运行告警", ""])
             lines.extend([f"- {warning}" for warning in warnings])
@@ -55,12 +61,14 @@ def render_markdown(items: list[NewsItem], generated_at: datetime, stats: dict |
         for idx, item in enumerate(groups[category], start=1):
             english_title = f" ({item.raw_title})" if item.raw_title and item.raw_title != item.title else ""
             tags = ", ".join(item.tags) if item.tags else "待编辑"
-            lines.extend([
-                f"{idx}. **{item.title}**{english_title}",
-                f"   摘要：{safe_summary(item.summary)}  ",
-                f"   来源：{item.source_name} | 标签：{tags}  ",
-                f"   链接：{item.url}",
-            ])
+            lines.extend(
+                [
+                    f"{idx}. **{item.title}**{english_title}",
+                    f"   摘要：{safe_summary(item.summary)}  ",
+                    f"   来源：{item.source_name} | 标签：{tags}  ",
+                    f"   链接：{item.url}",
+                ]
+            )
             if item.raw_summary and item.raw_summary != item.summary:
                 lines.append(f"   英文摘要：{safe_summary(item.raw_summary)}")
             if item.related_urls:

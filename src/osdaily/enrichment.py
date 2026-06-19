@@ -38,6 +38,15 @@ def enrich_items(
         raise ValueError(f"Unsupported translation provider: {provider}")
     if not translate and not rewrite_summary:
         return {"enriched": 0, "translated": 0, "rewritten": 0, "cached": 0, "skipped": len(items)}
+    if not os.getenv("OPENAI_API_KEY"):
+        return {
+            "enriched": 0,
+            "translated": 0,
+            "rewritten": 0,
+            "cached": 0,
+            "skipped": len(items),
+            "error": "OPENAI_API_KEY is required for Chinese translation.",
+        }
 
     enriched = 0
     cached = 0

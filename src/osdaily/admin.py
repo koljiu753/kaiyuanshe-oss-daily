@@ -340,6 +340,118 @@ HTML = r"""<!doctype html>
       aside { border-right: 0; }
       .metric-grid, .form { grid-template-columns: 1fr; }
     }
+    :root {
+      --bg: #08090c;
+      --panel: rgba(18, 19, 24, .86);
+      --ink: #f5f7fb;
+      --muted: #9aa4b2;
+      --line: rgba(255, 255, 255, .11);
+      --blue: #7c5cff;
+      --green: #40c978;
+      --red: #ff6b6b;
+      --amber: #f7ba4b;
+    }
+    body {
+      background:
+        radial-gradient(circle at 22% 12%, rgba(124, 92, 255, .24), transparent 34%),
+        radial-gradient(circle at 76% 0%, rgba(38, 210, 196, .16), transparent 32%),
+        linear-gradient(135deg, #08090c 0%, #11131a 58%, #0a0b0f 100%);
+      color: var(--ink);
+    }
+    header {
+      background: rgba(10, 11, 15, .78);
+      border-bottom-color: var(--line);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, .28);
+    }
+    h1 {
+      font-size: 22px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    h1::before {
+      content: "";
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #8b5cf6, #22d3ee);
+      box-shadow: 0 0 22px rgba(124, 92, 255, .95);
+    }
+    input, select, textarea, button {
+      background: rgba(255, 255, 255, .06);
+      color: var(--ink);
+      border-color: var(--line);
+      border-radius: 8px;
+    }
+    input::placeholder, textarea::placeholder { color: #70798a; }
+    select option { color: #111827; background: #fff; }
+    button {
+      background: rgba(255, 255, 255, .07);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .06);
+    }
+    button:hover {
+      background: rgba(255, 255, 255, .12);
+      border-color: rgba(255, 255, 255, .22);
+    }
+    button.primary {
+      background: linear-gradient(135deg, #7c5cff, #3b82f6);
+      border-color: rgba(255, 255, 255, .18);
+      box-shadow: 0 12px 30px rgba(79, 70, 229, .32);
+    }
+    button.primary:hover {
+      background: linear-gradient(135deg, #8b6cff, #4f8df7);
+      border-color: rgba(255, 255, 255, .3);
+    }
+    main {
+      gap: 1px;
+      padding: 1px;
+      background: rgba(255, 255, 255, .08);
+    }
+    aside, section.editor {
+      background: rgba(12, 13, 18, .72);
+      backdrop-filter: blur(20px);
+    }
+    .stats, .run-panel, .run-panel + .run-panel, .row, .metric, .preview, .empty {
+      background: var(--panel);
+      border-color: var(--line);
+    }
+    .stats span, .tag {
+      background: rgba(255, 255, 255, .06);
+      border-color: var(--line);
+      color: var(--muted);
+    }
+    .metric b, label, .row-title, .run-panel strong { color: var(--ink); }
+    .metric {
+      border-radius: 8px;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .05);
+    }
+    .row {
+      border-bottom-color: rgba(255, 255, 255, .08);
+      transition: background .16s ease, border-color .16s ease;
+    }
+    .row:hover, .row.active {
+      background: rgba(124, 92, 255, .15);
+      border-color: rgba(124, 92, 255, .35);
+    }
+    .row.active { box-shadow: inset 3px 0 0 #7c5cff; }
+    .tag.accepted { background: rgba(64, 201, 120, .12); border-color: rgba(64, 201, 120, .35); color: #7ee2a3; }
+    .tag.rejected { background: rgba(255, 107, 107, .13); border-color: rgba(255, 107, 107, .35); color: #ff9a9a; }
+    .tag.candidate { background: rgba(247, 186, 75, .13); border-color: rgba(247, 186, 75, .35); color: #ffd37a; }
+    .toolbar label.inline {
+      display: inline-flex;
+      grid-auto-flow: column;
+      align-items: center;
+      gap: 7px;
+      margin: 0 2px;
+      color: var(--muted);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+    .toolbar label.inline input { width: 16px; height: 16px; }
+    .url { color: #93c5fd; }
+    .status { color: #7ee2a3; }
+    .status.error { color: #ff9a9a; }
   </style>
 </head>
 <body>
@@ -614,10 +726,12 @@ HTML = r"""<!doctype html>
     async function runNow() {
       $('runNow').disabled = true;
       const days = Number($('runDays').value || 1);
+      const translate = $('translateRun') ? $('translateRun').checked : true;
+      const rewrite_summary = $('rewriteRun') ? $('rewriteRun').checked : true;
       const res = await fetch(apiUrl('/api/run'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ days })
+        body: JSON.stringify({ days, translate, rewrite_summary })
       });
       if (!res.ok) {
         $('runNow').disabled = false;
@@ -668,6 +782,24 @@ HTML = r"""<!doctype html>
       }[ch]));
     }
 
+    function mountRunOptions() {
+      if ($('translateRun')) return;
+      const runDays = $('runDays');
+      const toolbar = runDays ? runDays.parentElement : null;
+      if (!toolbar) return;
+      const translateLabel = document.createElement('label');
+      translateLabel.className = 'inline';
+      translateLabel.title = '需要在 Render 环境变量中配置 OPENAI_API_KEY';
+      translateLabel.innerHTML = '<input id="translateRun" type="checkbox" checked> 中文翻译';
+      const rewriteLabel = document.createElement('label');
+      rewriteLabel.className = 'inline';
+      rewriteLabel.title = '将摘要改写成公众号日报风格';
+      rewriteLabel.innerHTML = '<input id="rewriteRun" type="checkbox" checked> 摘要改写';
+      runDays.insertAdjacentElement('afterend', rewriteLabel);
+      runDays.insertAdjacentElement('afterend', translateLabel);
+    }
+
+    mountRunOptions();
     $('list').addEventListener('click', event => {
       const pick = event.target.closest('[data-pick]');
       if (pick) {
@@ -797,7 +929,7 @@ def serve_admin(
         enabled=False,
         schedule_time=schedule_time,
     )
-    handler = build_handler(db_path, output_dir, sources_path, rules_path, scheduler_state)
+    handler = build_handler(db_path, output_dir, sources_path, rules_path, scheduler_state, run_options)
     server = ThreadingHTTPServer((host, port), handler)
     print(f"Open Source Daily admin: http://{host}:{port}")
     server.serve_forever()
@@ -809,6 +941,7 @@ def build_handler(
     sources_path: Path,
     rules_path: Path,
     scheduler_state: SchedulerState,
+    run_options: RunOptions,
 ) -> type[BaseHTTPRequestHandler]:
     run_state = {
         "running": False,
@@ -941,6 +1074,8 @@ def build_handler(
             if parsed.path == "/api/run":
                 payload = self.read_json()
                 days = max(1, min(14, int(payload.get("days", 1))))
+                translate = bool(payload.get("translate", run_options.translate))
+                rewrite_summary = bool(payload.get("rewrite_summary", run_options.rewrite_summary))
                 with state_lock:
                     if run_state["running"]:
                         self.send_json({"error": "采集任务正在运行"}, HTTPStatus.CONFLICT)
@@ -952,13 +1087,17 @@ def build_handler(
                         "error": None,
                         "result": None,
                     })
-                thread = threading.Thread(target=self.run_in_background, args=(days,), daemon=True)
+                thread = threading.Thread(
+                    target=self.run_in_background,
+                    args=(days, translate, rewrite_summary),
+                    daemon=True,
+                )
                 thread.start()
-                self.send_json({"ok": True, "days": days})
+                self.send_json({"ok": True, "days": days, "translate": translate, "rewrite_summary": rewrite_summary})
                 return
             self.send_error(HTTPStatus.NOT_FOUND)
 
-        def run_in_background(self, days: int) -> None:
+        def run_in_background(self, days: int, translate: bool, rewrite_summary: bool) -> None:
             try:
                 result = run_pipeline(
                     RunOptions(
@@ -967,6 +1106,13 @@ def build_handler(
                         rules=rules_path,
                         db=db_path,
                         output=output_dir,
+                        notify=run_options.notify,
+                        translate=translate,
+                        translate_provider=run_options.translate_provider,
+                        translation_limit=run_options.translation_limit,
+                        rewrite_summary=rewrite_summary,
+                        min_items=run_options.min_items,
+                        max_items=run_options.max_items,
                     )
                 )
                 with state_lock:
