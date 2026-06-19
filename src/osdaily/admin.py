@@ -10,6 +10,8 @@ from pathlib import Path
 from urllib.parse import parse_qs, urlparse
 
 from . import __version__
+from .enrichment import build_mode, cache_key, enrich_with_llm, resolve_provider
+from .models import NewsItem
 from .report import write_report
 from .quality import build_quality_report
 from .runner import RunOptions, run_pipeline
@@ -839,6 +841,34 @@ HTML = r"""<!doctype html>
       return shouldShowChinese() ? (item.summary || item.raw_summary || '') : (item.raw_summary || item.summary || '');
     }
 
+    function hasChineseText(value) {
+      return /[\u4e00-\u9fff]/.test(String(value || ''));
+    }
+
+    function needsChineseTranslation(item) {
+      return item && (!hasChineseText(item.title) || !hasChineseText(item.summary || ''));
+    }
+
+    async function translateCurrentIfNeeded() {
+      const item = state.current;
+      if (!item || !shouldShowChinese() || !needsChineseTranslation(item)) return;
+      showStatus('正在翻译当前条目...');
+      const res = await fetch(apiUrl(`/api/items/${item.id}/translate`), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({})
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        showStatus(data.error || '翻译失败，请检查 API Key 和 Render 日志', true);
+        return;
+      }
+      Object.assign(item, data.item);
+      showStatus('翻译完成');
+      renderList();
+      openItem(item.id);
+    }
+
     filteredItems = function() {
       const q = $('q').value.trim().toLowerCase();
       const cat = $('category').value;
@@ -919,6 +949,7 @@ HTML = r"""<!doctype html>
     $('translateRun').addEventListener('change', () => {
       renderList();
       if (state.current) openItem(state.current.id);
+      translateCurrentIfNeeded();
     });
 
     $('list').addEventListener('click', event => {
@@ -1147,6 +1178,45 @@ def build_handler(
             if not self.require_auth():
                 return
             parsed = urlparse(self.path)
+            if parsed.path.startswith("/api/items/") and parsed.path.endswith("/translate"):
+                item_id = int(parsed.path.split("/")[-2])
+                store = Store(db_path)
+                try:
+                    record = store.get_item_record(item_id)
+                    if not record:
+                        self.send_json({"error": "item not found"}, HTTPStatus.NOT_FOUND)
+                        return
+                    source_title = record.get("raw_title") or record.get("title") or ""
+                    source_summary = record.get("raw_summary") or record.get("summary") or ""
+                    item = NewsItem(
+                        title=source_title,
+                        summary=source_summary,
+                        raw_title=source_title,
+                        raw_summary=source_summary,
+                        url=record["url"],
+                        source_id=record["source_id"],
+                        source_name=record["source_name"],
+                        category=record["category"],
+                        tags=record["tags"],
+                    )
+                    provider = os.getenv("TRANSLATION_PROVIDER", run_options.translate_provider)
+                    client_config = resolve_provider(provider)
+                    if not client_config["api_key"]:
+                        self.send_json({"error": f"{client_config['api_key_env']} is required"}, HTTPStatus.BAD_REQUEST)
+                        return
+                    key = cache_key(item, build_mode(True, True))
+                    cached = store.get_translation(key)
+                    if cached:
+                        title, summary = cached
+                    else:
+                        title, summary = enrich_with_llm(source_title, source_summary, True, True, client_config)
+                        store.save_translation(key, title, summary)
+                    store.update_translation_fields(item_id, title, summary, source_title, source_summary)
+                    updated = store.get_item_record(item_id)
+                finally:
+                    store.close()
+                self.send_json({"ok": True, "item": updated})
+                return
             if parsed.path.startswith("/api/items/"):
                 item_id = int(parsed.path.rsplit("/", 1)[-1])
                 payload = self.read_json()

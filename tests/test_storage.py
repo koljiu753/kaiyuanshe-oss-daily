@@ -76,3 +76,29 @@ def test_backfill_raw_fields_for_existing_url(tmp_path: Path) -> None:
         assert record["raw_summary"] == "English summary"
     finally:
         store.close()
+
+
+def test_update_translation_fields_preserves_raw_text(tmp_path: Path) -> None:
+    store = Store(tmp_path / "items.sqlite3")
+    try:
+        assert store.insert_item(
+            NewsItem(
+                title="English title",
+                raw_title="English title",
+                url="https://example.com/b",
+                source_id="src",
+                source_name="Source",
+                summary="English summary",
+                raw_summary="English summary",
+            )
+        )
+        item_id = store.list_item_records()[0]["id"]
+        assert store.update_translation_fields(item_id, "中文标题", "中文摘要", "English title", "English summary")
+        record = store.get_item_record(item_id)
+        assert record is not None
+        assert record["title"] == "中文标题"
+        assert record["summary"] == "中文摘要"
+        assert record["raw_title"] == "English title"
+        assert record["raw_summary"] == "English summary"
+    finally:
+        store.close()

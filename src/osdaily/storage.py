@@ -229,6 +229,42 @@ class Store:
         self.conn.commit()
         return cur.rowcount > 0
 
+    def get_item_record(self, item_id: int) -> dict | None:
+        cur = self.conn.execute(
+            """
+            SELECT id, url, title, summary, raw_title, raw_summary, source_id, source_name,
+                   published_at, author, category, tags_json, related_urls_json,
+                   curation_status, editor_note, updated_at, created_at
+            FROM items
+            WHERE id = ?
+            """,
+            (item_id,),
+        )
+        row = cur.fetchone()
+        return self._row_to_record(row) if row else None
+
+    def update_translation_fields(self, item_id: int, title: str, summary: str, raw_title: str, raw_summary: str) -> bool:
+        cur = self.conn.execute(
+            """
+            UPDATE items
+            SET title = ?, summary = ?,
+                raw_title = COALESCE(NULLIF(raw_title, ''), ?),
+                raw_summary = COALESCE(NULLIF(raw_summary, ''), ?),
+                updated_at = ?
+            WHERE id = ?
+            """,
+            (
+                title,
+                summary,
+                raw_title,
+                raw_summary,
+                datetime.now(timezone.utc).isoformat(),
+                item_id,
+            ),
+        )
+        self.conn.commit()
+        return cur.rowcount > 0
+
     def update_curation_status(self, item_id: int, curation_status: str) -> bool:
         if curation_status not in {"accepted", "candidate", "rejected"}:
             return False
