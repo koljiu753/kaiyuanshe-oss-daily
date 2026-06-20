@@ -463,6 +463,37 @@ HTML = r"""<!doctype html>
     .url { color: #93c5fd; }
     .status { color: #7ee2a3; }
     .status.error { color: #ff9a9a; }
+    .progress-wrap {
+      display: grid;
+      gap: 7px;
+      margin-top: 8px;
+    }
+    .progress-track {
+      height: 8px;
+      overflow: hidden;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .08);
+      border: 1px solid rgba(255, 255, 255, .1);
+    }
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, #22d3ee, #7c5cff, #3b82f6);
+      box-shadow: 0 0 18px rgba(124, 92, 255, .55);
+      transition: width .35s ease;
+    }
+    .progress-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+    .progress-meta span {
+      overflow-wrap: anywhere;
+    }
   </style>
 </head>
 <body>
@@ -829,6 +860,74 @@ HTML = r"""<!doctype html>
 
     mountRunOptions();
 
+    function formatDuration(seconds) {
+      const value = Number(seconds || 0);
+      if (!value) return '暂无';
+      if (value < 60) return `${Math.round(value)} 秒`;
+      const minutes = Math.floor(value / 60);
+      const rest = Math.round(value % 60);
+      return rest ? `${minutes} 分 ${rest} 秒` : `${minutes} 分`;
+    }
+
+    loadSummary = async function() {
+      const [summaryRes, stateRes, scheduleRes, qualityRes] = await Promise.all([
+        fetch(apiUrl('/api/summary')),
+        fetch(apiUrl('/api/run-state')),
+        fetch(apiUrl('/api/scheduler')),
+        fetch(apiUrl('/api/quality?days=7'))
+      ]);
+      const summary = await summaryRes.json();
+      const runState = await stateRes.json();
+      const scheduler = await scheduleRes.json();
+      state.quality = await qualityRes.json();
+      renderRunPanel(summary, runState, state.quality);
+      renderSchedulePanel(scheduler);
+    };
+
+    loadQuality = async function() {
+      const res = await fetch(apiUrl('/api/quality?days=7'));
+      const quality = await res.json();
+      state.quality = quality;
+      const failed = (quality.failed_sources || []).slice(0, 3).map(s => `${s.name}(${s.failures})`).join('，') || '无';
+      $('quality').innerHTML = `
+        <span>运行：${escapeHtml(quality.runs ?? 0)}</span>
+        <span>成功：${escapeHtml(Math.round((quality.success_rate ?? 0) * 100))}%</span>
+        <span>均值：${escapeHtml(quality.average_items ?? 0)} 条</span>
+        <span>均时：${escapeHtml(formatDuration(quality.average_duration_seconds))}</span>
+        <span>告警：${escapeHtml(quality.total_warnings ?? 0)}</span>
+        <span style="grid-column: 1 / -1">失败源：${escapeHtml(failed)}</span>
+      `;
+    };
+
+    renderRunPanel = function(summary, runState, quality = state.quality || {}) {
+      const progress = runState.progress || {};
+      const running = runState.running ? '运行中' : (runState.error ? '失败' : '空闲');
+      const last = summary.generated_at || '暂无';
+      const count = summary.report_items ?? 0;
+      const warnings = (summary.warnings || []).length ? summary.warnings.join('；') : '无';
+      const failed = Object.values(summary.sources || {}).filter(s => !s.ok).map(s => s.name);
+      const percent = Math.max(0, Math.min(100, Number(progress.percent || 0)));
+      const latestDuration = progress.duration_seconds || summary.duration_seconds || 0;
+      const currentSource = progress.source ? `当前源：${progress.source}` : progress.message || '';
+      $('runPanel').innerHTML = `
+        <div class="metric-grid">
+          <div class="metric"><b>${escapeHtml(running)}</b><span>运行状态</span></div>
+          <div class="metric"><b>${escapeHtml(count)}</b><span>最近条目</span></div>
+          <div class="metric"><b>${escapeHtml(failed.length)}</b><span>失败源</span></div>
+        </div>
+        <div class="progress-wrap">
+          <div class="progress-track"><div class="progress-fill" style="width:${percent}%"></div></div>
+          <div class="progress-meta">
+            <span>${escapeHtml(progress.message || '等待采集')} ${runState.running ? `${percent}%` : ''}</span>
+            <span>${escapeHtml(currentSource)}</span>
+          </div>
+        </div>
+        <div><strong>最近生成：</strong>${escapeHtml(last)}</div>
+        <div><strong>耗时：</strong>${escapeHtml(formatDuration(latestDuration))} | <strong>7 天平均：</strong>${escapeHtml(formatDuration(quality.average_duration_seconds))}</div>
+        <div><strong>告警：</strong>${escapeHtml(warnings)}${runState.error ? `；${escapeHtml(runState.error)}` : ''}</div>
+      `;
+    };
+
     function shouldShowChinese() {
       return !$('translateRun') || $('translateRun').checked;
     }
@@ -1112,6 +1211,15 @@ def build_handler(
         "finished_at": None,
         "error": None,
         "result": None,
+        "progress": {
+            "phase": "idle",
+            "message": "空闲",
+            "percent": 0,
+            "current": 0,
+            "total": 0,
+            "source": "",
+            "elapsed_seconds": 0,
+        },
     }
     state_lock = threading.Lock()
 
@@ -1291,6 +1399,15 @@ def build_handler(
                         "finished_at": None,
                         "error": None,
                         "result": None,
+                        "progress": {
+                            "phase": "collecting",
+                            "message": "准备采集",
+                            "percent": 1,
+                            "current": 0,
+                            "total": 0,
+                            "source": "",
+                            "elapsed_seconds": 0,
+                        },
                     })
                 thread = threading.Thread(
                     target=self.run_in_background,
@@ -1301,6 +1418,49 @@ def build_handler(
                 self.send_json({"ok": True, "days": days, "translate": translate, "rewrite_summary": rewrite_summary})
                 return
             self.send_error(HTTPStatus.NOT_FOUND)
+
+        def update_run_progress(self, payload: dict) -> None:
+            phase = str(payload.get("phase") or "collecting")
+            current = int(payload.get("current") or 0)
+            total = max(0, int(payload.get("total") or 0))
+            source = str(payload.get("source") or "")
+            phase_ranges = {
+                "collecting": (2, 72),
+                "processing": (73, 82),
+                "enriching": (83, 94),
+                "storing": (95, 98),
+                "done": (100, 100),
+            }
+            start, end = phase_ranges.get(phase, (2, 98))
+            if total > 0 and phase == "collecting":
+                percent = start + round((end - start) * min(current, total) / total)
+            else:
+                percent = end
+            labels = {
+                "collecting": "采集中",
+                "processing": "过滤去重中",
+                "enriching": "翻译/改写中",
+                "storing": "写入数据库中",
+                "done": "已完成",
+            }
+            with state_lock:
+                started_at = run_state.get("started_at")
+                elapsed = 0.0
+                if started_at:
+                    try:
+                        elapsed = (datetime.now().astimezone() - datetime.fromisoformat(str(started_at))).total_seconds()
+                    except ValueError:
+                        elapsed = 0.0
+                run_state["progress"] = {
+                    "phase": phase,
+                    "message": labels.get(phase, phase),
+                    "percent": max(0, min(100, percent)),
+                    "current": current,
+                    "total": total,
+                    "source": source,
+                    "elapsed_seconds": round(elapsed, 1),
+                    "duration_seconds": payload.get("duration_seconds"),
+                }
 
         def run_in_background(self, days: int, translate: bool, rewrite_summary: bool) -> None:
             try:
@@ -1318,7 +1478,8 @@ def build_handler(
                         rewrite_summary=rewrite_summary,
                         min_items=run_options.min_items,
                         max_items=run_options.max_items,
-                    )
+                    ),
+                    progress_callback=self.update_run_progress,
                 )
                 with state_lock:
                     run_state.update({
@@ -1326,6 +1487,16 @@ def build_handler(
                         "finished_at": datetime.now().astimezone().isoformat(),
                         "error": None,
                         "result": result,
+                        "progress": {
+                            "phase": "done",
+                            "message": "已完成",
+                            "percent": 100,
+                            "current": 100,
+                            "total": 100,
+                            "source": "",
+                            "elapsed_seconds": result.get("stats", {}).get("duration_seconds", 0),
+                            "duration_seconds": result.get("stats", {}).get("duration_seconds", 0),
+                        },
                     })
             except Exception as exc:
                 with state_lock:
@@ -1334,6 +1505,15 @@ def build_handler(
                         "finished_at": datetime.now().astimezone().isoformat(),
                         "error": str(exc),
                         "result": None,
+                        "progress": {
+                            "phase": "error",
+                            "message": "采集失败",
+                            "percent": 100,
+                            "current": 0,
+                            "total": 0,
+                            "source": "",
+                            "elapsed_seconds": run_state.get("progress", {}).get("elapsed_seconds", 0),
+                        },
                     })
 
         def read_json(self) -> dict:

@@ -29,6 +29,9 @@ def build_quality_report(output_dir: Path, days: int = 7, fallback_daily: bool =
             "runs": 0,
             "success_rate": 0.0,
             "average_items": 0.0,
+            "average_duration_seconds": 0.0,
+            "min_duration_seconds": 0.0,
+            "max_duration_seconds": 0.0,
             "total_warnings": 0,
             "failed_sources": [],
             "daily": [],
@@ -39,13 +42,17 @@ def build_quality_report(output_dir: Path, days: int = 7, fallback_daily: bool =
     warning_count = 0
     source_runs: defaultdict[str, int] = defaultdict(int)
     source_failures: defaultdict[str, int] = defaultdict(int)
+    durations: list[float] = []
     daily: list[dict[str, Any]] = []
 
     for summary in summaries:
         item_count = int(summary.get("report_items") or 0)
+        duration = float(summary.get("duration_seconds") or 0)
         warnings = list(summary.get("warnings") or [])
         sources = dict(summary.get("sources") or {})
         item_counts.append(item_count)
+        if duration > 0:
+            durations.append(duration)
         warning_count += len(warnings)
         failed_names: list[str] = []
         for source_id, source in sources.items():
@@ -60,6 +67,7 @@ def build_quality_report(output_dir: Path, days: int = 7, fallback_daily: bool =
                 "file": summary.get("_file"),
                 "generated_at": summary.get("generated_at"),
                 "items": item_count,
+                "duration_seconds": duration,
                 "warnings": warnings,
                 "failed_sources": failed_names,
             }
@@ -82,6 +90,9 @@ def build_quality_report(output_dir: Path, days: int = 7, fallback_daily: bool =
         "average_items": round(sum(item_counts) / len(item_counts), 2),
         "min_items": min(item_counts),
         "max_items": max(item_counts),
+        "average_duration_seconds": round(sum(durations) / len(durations), 2) if durations else 0.0,
+        "min_duration_seconds": round(min(durations), 2) if durations else 0.0,
+        "max_duration_seconds": round(max(durations), 2) if durations else 0.0,
         "total_warnings": warning_count,
         "failed_sources": failed_sources,
         "daily": daily,

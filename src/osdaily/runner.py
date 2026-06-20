@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import json
 import logging
+import time
 from dataclasses import dataclass
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -33,16 +34,36 @@ class RunOptions:
     max_items: int = 120
 
 
-def run_pipeline(options: RunOptions) -> dict:
+def run_pipeline(options: RunOptions, progress_callback=None) -> dict:
+    started_monotonic = time.monotonic()
     now = datetime.now().astimezone()
     since = datetime.now(timezone.utc) - timedelta(days=options.days)
     sources = load_sources(options.sources)
     rules = load_rules(options.rules)
 
-    items, source_stats = collect_all(sources, since)
+    phase_timings: dict[str, float] = {}
+    phase_started = time.monotonic()
+    if progress_callback:
+        progress_callback({
+            "phase": "collecting",
+            "current": 0,
+            "total": len([source for source in sources if source.enabled]),
+            "source": "",
+        })
+    items, source_stats = collect_all(sources, since, progress_callback=progress_callback)
+    phase_timings["collect_seconds"] = round(time.monotonic() - phase_started, 2)
+
     store = Store(options.db)
     try:
+        phase_started = time.monotonic()
+        if progress_callback:
+            progress_callback({"phase": "processing", "current": 0, "total": len(items), "source": ""})
         processed, process_stats = process_items(items, store, rules)
+        phase_timings["process_seconds"] = round(time.monotonic() - phase_started, 2)
+
+        phase_started = time.monotonic()
+        if progress_callback:
+            progress_callback({"phase": "enriching", "current": 0, "total": len(processed), "source": ""})
         enrich_stats = enrich_items(
             processed,
             store,
@@ -51,11 +72,18 @@ def run_pipeline(options: RunOptions) -> dict:
             translate=options.translate,
             rewrite_summary=options.rewrite_summary,
         )
+        phase_timings["enrich_seconds"] = round(time.monotonic() - phase_started, 2)
+
+        phase_started = time.monotonic()
+        if progress_callback:
+            progress_callback({"phase": "storing", "current": 0, "total": len(processed), "source": ""})
         for item in processed:
             store.insert_item(item)
+        phase_timings["store_seconds"] = round(time.monotonic() - phase_started, 2)
     finally:
         store.close()
 
+    duration_seconds = round(time.monotonic() - started_monotonic, 2)
     warning_messages = build_warnings(len(processed), source_stats, options.min_items, options.max_items)
     if enrich_stats.get("error"):
         warning_messages.append(str(enrich_stats["error"]))
@@ -67,11 +95,21 @@ def run_pipeline(options: RunOptions) -> dict:
         "enrichment": enrich_stats,
         "sources": source_stats,
         "warnings": warning_messages,
+        "duration_seconds": duration_seconds,
+        "phase_timings": phase_timings,
     }
     report_path = write_report(processed, options.output, now, run_stats)
     summary_path = write_run_summary(options.output, now, run_stats)
     if options.notify:
         send_webhook(report_path, len(processed), warning_messages)
+    if progress_callback:
+        progress_callback({
+            "phase": "done",
+            "current": 100,
+            "total": 100,
+            "source": "",
+            "duration_seconds": duration_seconds,
+        })
 
     result = {
         "report_path": str(report_path),

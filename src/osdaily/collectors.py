@@ -7,7 +7,7 @@ import time
 import warnings
 from datetime import datetime, timezone
 from email.utils import parsedate_to_datetime
-from typing import Iterable
+from typing import Callable, Iterable
 from urllib.parse import urljoin, urlparse
 
 import feedparser
@@ -272,12 +272,26 @@ def collect_twitter_list(source: Source, since: datetime) -> list[NewsItem]:
     return items
 
 
-def collect_all(sources: Iterable[Source], since: datetime) -> tuple[list[NewsItem], dict[str, dict[str, int | str]]]:
+ProgressCallback = Callable[[dict[str, int | str]], None]
+
+
+def collect_all(
+    sources: Iterable[Source],
+    since: datetime,
+    progress_callback: ProgressCallback | None = None,
+) -> tuple[list[NewsItem], dict[str, dict[str, int | str]]]:
     collected: list[NewsItem] = []
     stats: dict[str, dict[str, int | str]] = {}
-    for source in sources:
-        if not source.enabled:
-            continue
+    enabled_sources = [source for source in sources if source.enabled]
+    total = len(enabled_sources)
+    for index, source in enumerate(enabled_sources, start=1):
+        if progress_callback:
+            progress_callback({
+                "phase": "collecting",
+                "current": index - 1,
+                "total": total,
+                "source": source.name,
+            })
         try:
             items = collect_source(source, since)
             collected.extend(items)
@@ -286,4 +300,11 @@ def collect_all(sources: Iterable[Source], since: datetime) -> tuple[list[NewsIt
         except Exception as exc:
             stats[source.id] = {"ok": 0, "items": 0, "name": source.name, "error": str(exc)}
             LOG.warning("Failed collecting %s: %s", source.name, exc)
+        if progress_callback:
+            progress_callback({
+                "phase": "collecting",
+                "current": index,
+                "total": total,
+                "source": source.name,
+            })
     return collected, stats
