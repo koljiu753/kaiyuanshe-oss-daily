@@ -1,0 +1,199 @@
+{
+  "generated_at": "2026-07-07T22:59:23.260243+00:00",
+  "lookback_days": 1,
+  "report_items": 33,
+  "process": {
+    "irrelevant": 80,
+    "accepted": 33,
+    "seen_url": 11,
+    "blacklisted": 1,
+    "china_watch_irrelevant": 1
+  },
+  "enrichment": {
+    "enriched": 0,
+    "translated": 0,
+    "rewritten": 0,
+    "cached": 0,
+    "skipped": 33,
+    "error": "DEEPSEEK_API_KEY is required for Chinese translation."
+  },
+  "sources": {
+    "thenewstack": {
+      "ok": 1,
+      "items": 7,
+      "name": "The New Stack"
+    },
+    "opensource_com": {
+      "ok": 1,
+      "items": 0,
+      "name": "Opensource.com"
+    },
+    "devclass": {
+      "ok": 1,
+      "items": 1,
+      "name": "DevClass"
+    },
+    "infoworld_open_source": {
+      "ok": 1,
+      "items": 0,
+      "name": "InfoWorld Open Source"
+    },
+    "techcrunch_open_source": {
+      "ok": 1,
+      "items": 0,
+      "name": "TechCrunch Open Source"
+    },
+    "zdnet_open_source": {
+      "ok": 1,
+      "items": 0,
+      "name": "ZDNet Open Source"
+    },
+    "arstechnica_open_source": {
+      "ok": 1,
+      "items": 0,
+      "name": "Ars Technica Open Source"
+    },
+    "theregister_open_source": {
+      "ok": 1,
+      "items": 0,
+      "name": "The Register Open Source"
+    },
+    "hacker_news": {
+      "ok": 1,
+      "items": 20,
+      "name": "Hacker News"
+    },
+    "reddit_opensource": {
+      "ok": 1,
+      "items": 6,
+      "name": "Reddit r/opensource"
+    },
+    "lobsters_open_source": {
+      "ok": 1,
+      "items": 21,
+      "name": "Lobsters"
+    },
+    "cncf_blog": {
+      "ok": 0,
+      "items": 0,
+      "name": "CNCF Blog",
+      "error": "Client error '403 Forbidden' for url 'https://www.cncf.io/feed/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403"
+    },
+    "linux_foundation_blog": {
+      "ok": 1,
+      "items": 1,
+      "name": "Linux Foundation Blog"
+    },
+    "apache_foundation_blog": {
+      "ok": 1,
+      "items": 0,
+      "name": "Apache Software Foundation Blog"
+    },
+    "github_blog": {
+      "ok": 1,
+      "items": 1,
+      "name": "GitHub Blog"
+    },
+    "gitlab_blog": {
+      "ok": 1,
+      "items": 0,
+      "name": "GitLab Blog"
+    },
+    "google_open_source_blog": {
+      "ok": 1,
+      "items": 13,
+      "name": "Google Open Source Blog"
+    },
+    "microsoft_open_source_blog": {
+      "ok": 1,
+      "items": 0,
+      "name": "Microsoft Open Source Blog"
+    },
+    "aws_open_source_blog": {
+      "ok": 1,
+      "items": 1,
+      "name": "AWS Open Source Blog"
+    },
+    "mastodon_opensource": {
+      "ok": 1,
+      "items": 0,
+      "name": "Mastodon #opensource"
+    },
+    "mastodon_foss": {
+      "ok": 1,
+      "items": 0,
+      "name": "Mastodon #foss"
+    },
+    "mastodon_linux": {
+      "ok": 1,
+      "items": 0,
+      "name": "Mastodon #linux"
+    },
+    "cncf_youtube": {
+      "ok": 1,
+      "items": 0,
+      "name": "CNCF YouTube"
+    },
+    "linux_foundation_youtube": {
+      "ok": 1,
+      "items": 1,
+      "name": "Linux Foundation YouTube"
+    },
+    "nyt_technology_china_watch": {
+      "ok": 1,
+      "items": 21,
+      "name": "New York Times China/Open Source Monitor"
+    },
+    "ft_technology_china_watch": {
+      "ok": 1,
+      "items": 11,
+      "name": "Financial Times Technology"
+    },
+    "economist_china_watch": {
+      "ok": 1,
+      "items": 0,
+      "name": "The Economist China"
+    },
+    "reuters_china_open_source_monitor": {
+      "ok": 1,
+      "items": 16,
+      "name": "Reuters China/Open Source Monitor"
+    },
+    "bloomberg_china_open_source_monitor": {
+      "ok": 1,
+      "items": 2,
+      "name": "Bloomberg China/Open Source Monitor"
+    },
+    "mit_technology_review_china_open_source_monitor": {
+      "ok": 1,
+      "items": 1,
+      "name": "MIT Technology Review China/Open Source Monitor"
+    },
+    "wired_china_open_source_monitor": {
+      "ok": 1,
+      "items": 2,
+      "name": "Wired China/Open Source Monitor"
+    },
+    "the_verge_china_open_source_monitor": {
+      "ok": 1,
+      "items": 0,
+      "name": "The Verge China/Open Source Monitor"
+    },
+    "rest_of_world_china_open_source_monitor": {
+      "ok": 1,
+      "items": 1,
+      "name": "Rest of World China/Open Source Monitor"
+    }
+  },
+  "warnings": [
+    "采集失败源：CNCF Blog",
+    "DEEPSEEK_API_KEY is required for Chinese translation."
+  ],
+  "duration_seconds": 24.02,
+  "phase_timings": {
+    "collect_seconds": 23.87,
+    "process_seconds": 0.09,
+    "enrich_seconds": 0.0,
+    "store_seconds": 0.02
+  }
+}
