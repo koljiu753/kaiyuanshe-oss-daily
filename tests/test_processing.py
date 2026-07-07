@@ -137,3 +137,37 @@ def test_google_news_china_watch_ignores_query_terms_in_summary(tmp_path: Path) 
     assert accepted == []
     assert stats.get("china_watch", 0) == 0
     assert stats["china_watch_irrelevant"] == 1
+
+
+def test_social_watch_marks_foreign_social_discussion(tmp_path: Path) -> None:
+    store = Store(tmp_path / "items.sqlite3")
+    try:
+        items = [
+            NewsItem(
+                title="HN discussion: DeepSeek releases open-source model weights",
+                summary="Developers discuss China AI and open-source model governance.",
+                url="https://news.ycombinator.com/item?id=1",
+                source_id="hacker_news",
+                source_name="Hacker News",
+                category="社区",
+                tags=["hacker-news"],
+            )
+        ]
+        rules = {
+            "relevance_keywords": ["open-source", "model"],
+            "blacklist_keywords": [],
+            "social_watch_category": "涉外社媒观察",
+            "social_watch_source_tags": ["hacker-news", "reddit", "mastodon", "lobsters"],
+            "social_watch_keywords": ["China", "DeepSeek"],
+            "social_watch_open_source_keywords": ["open-source", "open source", "open weights"],
+            "categories": {"社区/基金会": ["discussion"]},
+        }
+        accepted, stats = process_items(items, store, rules)
+    finally:
+        store.close()
+
+    assert len(accepted) == 1
+    assert accepted[0].category == "涉外社媒观察"
+    assert "social-watch" in accepted[0].tags
+    assert "涉外社媒" in accepted[0].tags
+    assert stats["social_watch"] == 1

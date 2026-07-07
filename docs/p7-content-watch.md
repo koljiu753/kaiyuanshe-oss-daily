@@ -34,6 +34,27 @@
 
 Markdown 导出时会追加主编提示，提醒编辑结合华语开源社区视角补充转发语或短评。
 
+## 涉外社媒观察
+
+系统还会从社区与社媒来源中识别涉华开源讨论：
+
+- Hacker News
+- Reddit r/opensource
+- Lobsters
+- Mastodon `#opensource` / `#foss` / `#linux`
+- Twitter/X KOL List（配置官方 API 后启用）
+
+只有同时命中涉华信号和开源信号的社媒/社区内容才会进入「涉外社媒观察」。入选条目会自动追加：
+
+- `p7-content`
+- `social-watch`
+- `editorial-review`
+- `涉外社媒`
+- `社媒观察`
+- `主编点评`
+
+Markdown 导出时会提示编辑判断是否需要社媒回应、转发短评或跟进讨论。
+
 ## 运营建议
 
 每日查看「外媒涉华开源观察」分类时，建议主编判断：

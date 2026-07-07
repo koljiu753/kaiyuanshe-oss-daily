@@ -35,8 +35,9 @@ blacklist_keywords:
   - discount code
 
 china_watch_category: 外媒涉华开源观察
+social_watch_category: 涉外社媒观察
 
-china_watch_open_source_keywords:
+china_watch_open_source_keywords: &open_source_signals
   - open source
   - open-source
   - opensource
@@ -62,7 +63,7 @@ china_watch_open_source_keywords:
   - SBOM
   - 开源
 
-china_watch_keywords:
+china_watch_keywords: &china_signals
   - China
   - Chinese
   - Beijing
@@ -96,6 +97,17 @@ china_watch_keywords:
   - 开放原子
   - 开源社
 
+social_watch_source_tags:
+  - hacker-news
+  - reddit
+  - lobsters
+  - mastodon
+  - twitter
+  - kol
+
+social_watch_keywords: *china_signals
+social_watch_open_source_keywords: *open_source_signals
+
 categories:
   外媒涉华开源观察:
     - China
@@ -118,6 +130,20 @@ categories:
     - 百度
     - 字节跳动
     - 开源社
+  涉外社媒观察:
+    - Hacker News
+    - Reddit
+    - Lobsters
+    - Mastodon
+    - Twitter
+    - X
+    - China
+    - Chinese
+    - Huawei
+    - DeepSeek
+    - Gitee
+    - OpenHarmony
+    - openEuler
   AI 开源:
     - AI
     - artificial intelligence

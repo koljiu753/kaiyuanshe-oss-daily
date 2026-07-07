@@ -19,9 +19,11 @@ def safe_summary(summary: str) -> str:
 
 
 def editorial_hint(item: NewsItem) -> str | None:
-    if "china-watch" not in item.tags:
-        return None
-    return "主编提示：外媒涉华开源观察，建议结合华语开源社区视角补充转发语或短评。"
+    if "china-watch" in item.tags:
+        return "主编提示：外媒涉华开源观察，建议结合华语开源社区视角补充转发语或短评。"
+    if "social-watch" in item.tags:
+        return "主编提示：涉外社媒观察，建议判断是否需要社媒回应、转发短评或跟进讨论。"
+    return None
 
 
 def render_markdown(items: list[NewsItem], generated_at: datetime, stats: dict | None = None) -> str:

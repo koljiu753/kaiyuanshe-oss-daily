@@ -860,6 +860,23 @@ HTML = r"""<!doctype html>
 
     mountRunOptions();
 
+    const pinnedCategories = [
+      '外媒涉华开源观察',
+      '涉外社媒观察',
+      '海外社区舆情',
+      '国际 KOL 观点',
+      '中国开源项目海外传播',
+      '海外大会/CFP 动态'
+    ];
+
+    renderCategories = function() {
+      const cats = [...new Set([
+        ...pinnedCategories,
+        ...state.items.map(i => i.category || '综合')
+      ])].sort((a, b) => pinnedCategories.includes(a) && !pinnedCategories.includes(b) ? -1 : (!pinnedCategories.includes(a) && pinnedCategories.includes(b) ? 1 : a.localeCompare(b, 'zh-Hans-CN')));
+      $('category').innerHTML = '<option value="">全部分类</option>' + cats.map(c => `<option>${escapeHtml(c)}</option>`).join('');
+    };
+
     function formatDuration(seconds) {
       const value = Number(seconds || 0);
       if (!value) return '暂无';

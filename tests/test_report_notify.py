@@ -40,6 +40,21 @@ def test_render_markdown_includes_china_watch_editorial_hint() -> None:
     assert "主编提示：外媒涉华开源观察" in text
 
 
+def test_render_markdown_includes_social_watch_editorial_hint() -> None:
+    item = NewsItem(
+        title="DeepSeek open-source model discussion trends on HN",
+        url="https://news.ycombinator.com/item?id=1",
+        source_id="hacker_news",
+        source_name="Hacker News",
+        summary="Developers discuss China AI and open-source model governance.",
+        category="涉外社媒观察",
+        tags=["social-watch", "editorial-review"],
+    )
+    text = render_markdown([item], datetime(2026, 7, 7))
+    assert "## 涉外社媒观察" in text
+    assert "主编提示：涉外社媒观察" in text
+
+
 def test_write_report_creates_file(tmp_path: Path) -> None:
     item = NewsItem(title="Open source", url="https://example.com", source_id="x", source_name="X")
     path = write_report([item], tmp_path, datetime(2026, 6, 17))

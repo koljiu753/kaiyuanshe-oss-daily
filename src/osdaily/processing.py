@@ -43,26 +43,39 @@ def is_relevant(item: NewsItem, keywords: list[str]) -> bool:
     return bool(contains_any(blob, keywords))
 
 
+def editorial_text(item: NewsItem) -> str:
+    if "google-news" in item.tags:
+        return f"{item.title}\n{item.raw_title}"
+    return f"{item.title}\n{item.summary}\n{item.raw_title}\n{item.raw_summary}"
+
+
+def has_dual_signal(item: NewsItem, subject_keywords: list[str], open_source_keywords: list[str]) -> bool:
+    text = editorial_text(item)
+    return bool(contains_any(text, subject_keywords)) and bool(contains_any(text, open_source_keywords))
+
+
 def is_china_watch_candidate(
     item: NewsItem,
     china_keywords: list[str],
     open_source_keywords: list[str],
 ) -> bool:
-    if "china-watch" not in item.tags:
-        return False
-    if "google-news" in item.tags:
-        editorial_text = f"{item.title}\n{item.raw_title}"
-    else:
-        editorial_text = f"{item.title}\n{item.summary}\n{item.raw_title}\n{item.raw_summary}"
-    has_china_signal = bool(contains_any(editorial_text, china_keywords))
-    has_open_source_signal = bool(contains_any(editorial_text, open_source_keywords))
-    return has_china_signal and has_open_source_signal
+    return "china-watch" in item.tags and has_dual_signal(item, china_keywords, open_source_keywords)
 
 
-def mark_china_watch(item: NewsItem, category: str) -> None:
+def is_social_watch_candidate(
+    item: NewsItem,
+    source_tags: list[str],
+    subject_keywords: list[str],
+    open_source_keywords: list[str],
+) -> bool:
+    return bool(set(item.tags) & set(source_tags)) and has_dual_signal(item, subject_keywords, open_source_keywords)
+
+
+def mark_watch_item(item: NewsItem, category: str, extra_tags: set[str]) -> None:
     item.category = category
     tags = set(item.tags)
-    tags.update({"p7-content", "china-watch", "editorial-review", "外媒涉华", "主编点评"})
+    tags.update({"p7-content", "editorial-review"})
+    tags.update(extra_tags)
     item.tags = sorted(tags)
 
 
@@ -94,9 +107,16 @@ def process_items(
     keywords = list(rules.get("relevance_keywords", []))
     blacklist = list(rules.get("blacklist_keywords", []))
     category_rules = dict(rules.get("categories", {}))
+    china_watch_category = str(rules.get("china_watch_category", "外媒涉华开源观察"))
     china_watch_keywords = list(rules.get("china_watch_keywords", []))
     china_watch_open_source_keywords = list(rules.get("china_watch_open_source_keywords", []))
-    china_watch_category = str(rules.get("china_watch_category", "外媒涉华开源观察"))
+    social_watch_category = str(rules.get("social_watch_category", "涉外社媒观察"))
+    social_watch_source_tags = list(rules.get("social_watch_source_tags", []))
+    social_watch_keywords = list(rules.get("social_watch_keywords", china_watch_keywords))
+    social_watch_open_source_keywords = list(
+        rules.get("social_watch_open_source_keywords", china_watch_open_source_keywords)
+    )
+    p7_strict_categories = {china_watch_category, social_watch_category}
     stats = defaultdict(int)
     accepted: list[NewsItem] = []
 
@@ -112,6 +132,7 @@ def process_items(
         if keywords and not is_relevant(item, keywords):
             stats["irrelevant"] += 1
             continue
+
         is_china_watch = is_china_watch_candidate(
             item,
             china_watch_keywords,
@@ -120,6 +141,13 @@ def process_items(
         if "china-watch" in item.tags and not is_china_watch:
             stats["china_watch_irrelevant"] += 1
             continue
+
+        is_social_watch = is_social_watch_candidate(
+            item,
+            social_watch_source_tags,
+            social_watch_keywords,
+            social_watch_open_source_keywords,
+        )
 
         merged = False
         for existing in accepted:
@@ -133,13 +161,16 @@ def process_items(
             continue
 
         if is_china_watch:
-            mark_china_watch(item, china_watch_category)
+            mark_watch_item(item, china_watch_category, {"china-watch", "外媒涉华", "主编点评"})
             stats["china_watch"] += 1
+        elif is_social_watch:
+            mark_watch_item(item, social_watch_category, {"social-watch", "涉外社媒", "社媒观察", "主编点评"})
+            stats["social_watch"] += 1
         else:
             generic_category_rules = {
                 category: values
                 for category, values in category_rules.items()
-                if category != china_watch_category
+                if category not in p7_strict_categories
             }
             item.category, item.tags = classify(item, generic_category_rules)
         accepted.append(item)
