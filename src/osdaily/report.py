@@ -18,6 +18,12 @@ def safe_summary(summary: str) -> str:
     return summary or "暂无摘要，建议编辑打开原文确认要点。"
 
 
+def editorial_hint(item: NewsItem) -> str | None:
+    if "china-watch" not in item.tags:
+        return None
+    return "主编提示：外媒涉华开源观察，建议结合华语开源社区视角补充转发语或短评。"
+
+
 def render_markdown(items: list[NewsItem], generated_at: datetime, stats: dict | None = None) -> str:
     date = zh_date(generated_at)
     lines = [
@@ -71,6 +77,9 @@ def render_markdown(items: list[NewsItem], generated_at: datetime, stats: dict |
             )
             if item.raw_summary and item.raw_summary != item.summary:
                 lines.append(f"   英文摘要：{safe_summary(item.raw_summary)}")
+            hint = editorial_hint(item)
+            if hint:
+                lines.append(f"   {hint}")
             if item.related_urls:
                 lines.append(f"   相关来源：{', '.join(item.related_urls)}")
             lines.append("")

@@ -20,6 +20,7 @@ https://kaiyuanshe-oss-daily.onrender.com
 - 输出归档：生成 `open-source-daily-YYYY-MM-DD.md` 和 `run-summary-YYYY-MM-DD.json`。
 - 定时执行：GitHub Actions 与内置服务调度均支持每日北京时间 06:00 运行。
 - 通知：支持 generic、企业微信、飞书/Lark、钉钉 Webhook。
+- P7 内容策划：支持 NYT / FT / The Economist 等外媒涉华开源报道监测，入选条目会标记为「外媒涉华开源观察」并提示主编点评。
 - 部署：支持 Render、Docker Compose、生产 Caddy 反向代理。
 - 质量审计：提供 7 天质量报告、配置校验和交付就绪检查。
 

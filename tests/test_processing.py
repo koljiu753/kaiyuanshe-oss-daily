@@ -39,3 +39,35 @@ def test_process_items_filters_and_merges(tmp_path: Path) -> None:
     assert stats["blacklisted"] == 1
     assert stats["irrelevant"] == 1
     assert stats["similar_merged"] == 1
+
+
+def test_process_items_marks_china_watch_for_editorial_review(tmp_path: Path) -> None:
+    store = Store(tmp_path / "items.sqlite3")
+    try:
+        items = [
+            NewsItem(
+                title="How China is embracing open source AI infrastructure",
+                summary="Chinese companies are using open source models and GitHub projects.",
+                url="https://example.com/china-open-source-ai",
+                source_id="nyt_technology_china_watch",
+                source_name="New York Times Technology",
+                category="外媒涉华开源观察",
+                tags=["media", "china-watch"],
+            )
+        ]
+        rules = {
+            "relevance_keywords": ["open source", "GitHub"],
+            "blacklist_keywords": [],
+            "china_watch_category": "外媒涉华开源观察",
+            "china_watch_keywords": ["China", "Chinese"],
+            "categories": {},
+        }
+        accepted, stats = process_items(items, store, rules)
+    finally:
+        store.close()
+
+    assert len(accepted) == 1
+    assert accepted[0].category == "外媒涉华开源观察"
+    assert "editorial-review" in accepted[0].tags
+    assert "主编点评" in accepted[0].tags
+    assert stats["china_watch"] == 1

@@ -25,6 +25,21 @@ def test_render_markdown_groups_items() -> None:
     assert "Kubernetes released" in text
 
 
+def test_render_markdown_includes_china_watch_editorial_hint() -> None:
+    item = NewsItem(
+        title="China open source AI is watched globally",
+        url="https://example.com/china-open-source",
+        source_id="nyt_technology_china_watch",
+        source_name="New York Times Technology",
+        summary="A global media report about Chinese open source AI.",
+        category="外媒涉华开源观察",
+        tags=["china-watch", "editorial-review"],
+    )
+    text = render_markdown([item], datetime(2026, 7, 7))
+    assert "## 外媒涉华开源观察" in text
+    assert "主编提示：外媒涉华开源观察" in text
+
+
 def test_write_report_creates_file(tmp_path: Path) -> None:
     item = NewsItem(title="Open source", url="https://example.com", source_id="x", source_name="X")
     path = write_report([item], tmp_path, datetime(2026, 6, 17))

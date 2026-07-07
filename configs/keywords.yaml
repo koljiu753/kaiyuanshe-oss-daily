@@ -34,7 +34,64 @@ blacklist_keywords:
   - coupon
   - discount code
 
+china_watch_category: 外媒涉华开源观察
+
+china_watch_keywords:
+  - China
+  - Chinese
+  - Beijing
+  - Shanghai
+  - Shenzhen
+  - Hong Kong
+  - Taiwan
+  - Huawei
+  - Alibaba
+  - Tencent
+  - Baidu
+  - ByteDance
+  - DeepSeek
+  - Ant Group
+  - Alibaba Cloud
+  - Gitee
+  - OpenHarmony
+  - openEuler
+  - Kylin
+  - Apache Kylin
+  - TiDB
+  - Dragonfly
+  - 中国
+  - 华为
+  - 阿里巴巴
+  - 腾讯
+  - 百度
+  - 字节跳动
+  - 深度求索
+  - 蚂蚁集团
+  - 开放原子
+  - 开源社
+
 categories:
+  外媒涉华开源观察:
+    - China
+    - Chinese
+    - Huawei
+    - Alibaba
+    - Tencent
+    - Baidu
+    - ByteDance
+    - DeepSeek
+    - Gitee
+    - OpenHarmony
+    - openEuler
+    - Kylin
+    - TiDB
+    - 中国
+    - 华为
+    - 阿里巴巴
+    - 腾讯
+    - 百度
+    - 字节跳动
+    - 开源社
   AI 开源:
     - AI
     - artificial intelligence

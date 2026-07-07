@@ -217,6 +217,33 @@ sources:
     frequency_minutes: 1440
     tags: [youtube, linux-foundation]
 
+  - id: nyt_technology_china_watch
+    name: New York Times China/Open Source Monitor
+    type: rss
+    url: "https://news.google.com/rss/search?q=site:nytimes.com%20%28open%20source%20OR%20GitHub%20OR%20Linux%20OR%20AI%29%20%28China%20OR%20Chinese%20OR%20Huawei%20OR%20DeepSeek%29&hl=en-US&gl=US&ceid=US:en"
+    category: 外媒涉华开源观察
+    enabled: true
+    frequency_minutes: 720
+    tags: [media, nyt, google-news, china-watch, p7-content]
+
+  - id: ft_technology_china_watch
+    name: Financial Times Technology
+    type: rss
+    url: https://www.ft.com/technology?format=rss
+    category: 外媒涉华开源观察
+    enabled: true
+    frequency_minutes: 720
+    tags: [media, financial-times, china-watch, p7-content]
+
+  - id: economist_china_watch
+    name: The Economist China
+    type: rss
+    url: https://www.economist.com/china/rss.xml
+    category: 外媒涉华开源观察
+    enabled: true
+    frequency_minutes: 720
+    tags: [media, economist, china-watch, p7-content]
+
   - id: twitter_open_source_kol
     name: Twitter/X OpenSourceKOL
     type: twitter_api_list

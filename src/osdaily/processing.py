@@ -43,6 +43,18 @@ def is_relevant(item: NewsItem, keywords: list[str]) -> bool:
     return bool(contains_any(blob, keywords))
 
 
+def is_china_watch_candidate(item: NewsItem, keywords: list[str]) -> bool:
+    blob = f"{item.title}\n{item.summary}\n{' '.join(item.tags)}"
+    return "china-watch" in item.tags and bool(contains_any(blob, keywords))
+
+
+def mark_china_watch(item: NewsItem, category: str) -> None:
+    item.category = category
+    tags = set(item.tags)
+    tags.update({"p7-content", "china-watch", "editorial-review", "外媒涉华", "主编点评"})
+    item.tags = sorted(tags)
+
+
 def classify(item: NewsItem, category_rules: dict[str, list[str]]) -> tuple[str, list[str]]:
     blob = f"{item.title}\n{item.summary}\n{' '.join(item.tags)}"
     scores: dict[str, int] = {}
@@ -71,6 +83,8 @@ def process_items(
     keywords = list(rules.get("relevance_keywords", []))
     blacklist = list(rules.get("blacklist_keywords", []))
     category_rules = dict(rules.get("categories", {}))
+    china_watch_keywords = list(rules.get("china_watch_keywords", []))
+    china_watch_category = str(rules.get("china_watch_category", "外媒涉华开源观察"))
     stats = defaultdict(int)
     accepted: list[NewsItem] = []
 
@@ -86,6 +100,7 @@ def process_items(
         if keywords and not is_relevant(item, keywords):
             stats["irrelevant"] += 1
             continue
+        is_china_watch = is_china_watch_candidate(item, china_watch_keywords)
 
         merged = False
         for existing in accepted:
@@ -98,7 +113,11 @@ def process_items(
         if merged:
             continue
 
-        item.category, item.tags = classify(item, category_rules)
+        if is_china_watch:
+            mark_china_watch(item, china_watch_category)
+            stats["china_watch"] += 1
+        else:
+            item.category, item.tags = classify(item, category_rules)
         accepted.append(item)
         stats["accepted"] += 1
 
