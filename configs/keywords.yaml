@@ -36,6 +36,32 @@ blacklist_keywords:
 
 china_watch_category: 外媒涉华开源观察
 
+china_watch_open_source_keywords:
+  - open source
+  - open-source
+  - opensource
+  - FOSS
+  - free software
+  - GitHub
+  - GitLab
+  - Linux
+  - Kubernetes
+  - CNCF
+  - Apache
+  - open model
+  - open models
+  - open weights
+  - open-weight
+  - open-source AI
+  - open-source model
+  - open-source models
+  - license
+  - GPL
+  - Apache License
+  - MIT license
+  - SBOM
+  - 开源
+
 china_watch_keywords:
   - China
   - Chinese
@@ -98,6 +124,7 @@ categories:
     - machine learning
     - LLM
     - model
+    - open model
     - Hugging Face
     - PyTorch
     - TensorFlow

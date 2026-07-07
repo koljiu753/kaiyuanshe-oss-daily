@@ -9,11 +9,20 @@
 - New York Times China/Open Source Monitor：通过 Google News RSS 限定 `site:nytimes.com`。
 - Financial Times Technology：FT 官方 Technology RSS。
 - The Economist China：The Economist 官方 China RSS。
+- Reuters China/Open Source Monitor：通过 Google News RSS 限定 `site:reuters.com`。
+- Bloomberg China/Open Source Monitor：通过 Google News RSS 限定 `site:bloomberg.com`。
+- MIT Technology Review China/Open Source Monitor：通过 Google News RSS 限定 `site:technologyreview.com`。
+- Wired China/Open Source Monitor：通过 Google News RSS 限定 `site:wired.com`。
+- The Verge China/Open Source Monitor：通过 Google News RSS 限定 `site:theverge.com`。
+- Rest of World China/Open Source Monitor：通过 Google News RSS 限定 `site:restofworld.org`。
 
 采集后只有同时满足以下条件的条目才会进入日报：
 
-- 命中开源相关关键词，例如 `open source`、`GitHub`、`Linux`、`license`、`foundation` 等。
-- 来源带有 `china-watch` 标签，并命中涉华关键词，例如 `China`、`Chinese`、`Huawei`、`Alibaba`、`DeepSeek`、`Gitee`、`OpenHarmony`、`openEuler` 等。
+- 标题或摘要命中开源专用关键词，例如 `open source`、`GitHub`、`Linux`、`open model`、`open weights`、`license` 等。
+- 标题或摘要命中涉华关键词，例如 `China`、`Chinese`、`Huawei`、`Alibaba`、`DeepSeek`、`Gitee`、`OpenHarmony`、`openEuler` 等。
+- 来源带有 `china-watch` 标签。
+
+注意：`china-watch` 来源标签本身不会被当作涉华命中信号，避免把泛 AI、泛供应链报道误判为涉华开源观察。
 
 入选条目会被归类到「外媒涉华开源观察」，并自动追加标签：
 

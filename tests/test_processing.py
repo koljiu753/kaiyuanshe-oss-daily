@@ -60,6 +60,7 @@ def test_process_items_marks_china_watch_for_editorial_review(tmp_path: Path) ->
             "blacklist_keywords": [],
             "china_watch_category": "外媒涉华开源观察",
             "china_watch_keywords": ["China", "Chinese"],
+            "china_watch_open_source_keywords": ["open source", "GitHub"],
             "categories": {},
         }
         accepted, stats = process_items(items, store, rules)
@@ -71,3 +72,68 @@ def test_process_items_marks_china_watch_for_editorial_review(tmp_path: Path) ->
     assert "editorial-review" in accepted[0].tags
     assert "主编点评" in accepted[0].tags
     assert stats["china_watch"] == 1
+
+
+def test_china_watch_requires_explicit_china_and_open_source_signals(tmp_path: Path) -> None:
+    store = Store(tmp_path / "items.sqlite3")
+    try:
+        items = [
+            NewsItem(
+                title="Honeywell spin-off targets AI supply chain with Element deal",
+                summary="The transaction creates an advanced materials company.",
+                url="https://example.com/ai-supply-chain",
+                source_id="ft_technology_china_watch",
+                source_name="Financial Times Technology",
+                category="外媒涉华开源观察",
+                tags=["media", "china-watch"],
+            )
+        ]
+        rules = {
+            "relevance_keywords": ["supply chain"],
+            "blacklist_keywords": [],
+            "china_watch_category": "外媒涉华开源观察",
+            "china_watch_keywords": ["China", "Chinese", "Huawei"],
+            "china_watch_open_source_keywords": ["open source", "GitHub", "Linux"],
+            "categories": {"综合": ["supply chain"]},
+        }
+        accepted, stats = process_items(items, store, rules)
+    finally:
+        store.close()
+
+    assert accepted == []
+    assert stats.get("china_watch", 0) == 0
+    assert stats["china_watch_irrelevant"] == 1
+
+
+def test_google_news_china_watch_ignores_query_terms_in_summary(tmp_path: Path) -> None:
+    store = Store(tmp_path / "items.sqlite3")
+    try:
+        items = [
+            NewsItem(
+                title="Chainguard uses AI to hunt for open-source flaws",
+                summary="Google News search result for China Huawei open source.",
+                url="https://example.com/open-source-flaws",
+                source_id="bloomberg_china_open_source_monitor",
+                source_name="Bloomberg China/Open Source Monitor",
+                category="外媒涉华开源观察",
+                tags=["media", "china-watch", "google-news"],
+            )
+        ]
+        rules = {
+            "relevance_keywords": ["open source", "open-source"],
+            "blacklist_keywords": [],
+            "china_watch_category": "外媒涉华开源观察",
+            "china_watch_keywords": ["China", "Chinese", "Huawei"],
+            "china_watch_open_source_keywords": ["open source", "open-source"],
+            "categories": {
+                "外媒涉华开源观察": ["China", "Huawei"],
+                "综合": ["open source", "open-source"],
+            },
+        }
+        accepted, stats = process_items(items, store, rules)
+    finally:
+        store.close()
+
+    assert accepted == []
+    assert stats.get("china_watch", 0) == 0
+    assert stats["china_watch_irrelevant"] == 1

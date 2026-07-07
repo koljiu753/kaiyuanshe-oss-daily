@@ -43,9 +43,20 @@ def is_relevant(item: NewsItem, keywords: list[str]) -> bool:
     return bool(contains_any(blob, keywords))
 
 
-def is_china_watch_candidate(item: NewsItem, keywords: list[str]) -> bool:
-    blob = f"{item.title}\n{item.summary}\n{' '.join(item.tags)}"
-    return "china-watch" in item.tags and bool(contains_any(blob, keywords))
+def is_china_watch_candidate(
+    item: NewsItem,
+    china_keywords: list[str],
+    open_source_keywords: list[str],
+) -> bool:
+    if "china-watch" not in item.tags:
+        return False
+    if "google-news" in item.tags:
+        editorial_text = f"{item.title}\n{item.raw_title}"
+    else:
+        editorial_text = f"{item.title}\n{item.summary}\n{item.raw_title}\n{item.raw_summary}"
+    has_china_signal = bool(contains_any(editorial_text, china_keywords))
+    has_open_source_signal = bool(contains_any(editorial_text, open_source_keywords))
+    return has_china_signal and has_open_source_signal
 
 
 def mark_china_watch(item: NewsItem, category: str) -> None:
@@ -84,6 +95,7 @@ def process_items(
     blacklist = list(rules.get("blacklist_keywords", []))
     category_rules = dict(rules.get("categories", {}))
     china_watch_keywords = list(rules.get("china_watch_keywords", []))
+    china_watch_open_source_keywords = list(rules.get("china_watch_open_source_keywords", []))
     china_watch_category = str(rules.get("china_watch_category", "外媒涉华开源观察"))
     stats = defaultdict(int)
     accepted: list[NewsItem] = []
@@ -100,7 +112,14 @@ def process_items(
         if keywords and not is_relevant(item, keywords):
             stats["irrelevant"] += 1
             continue
-        is_china_watch = is_china_watch_candidate(item, china_watch_keywords)
+        is_china_watch = is_china_watch_candidate(
+            item,
+            china_watch_keywords,
+            china_watch_open_source_keywords,
+        )
+        if "china-watch" in item.tags and not is_china_watch:
+            stats["china_watch_irrelevant"] += 1
+            continue
 
         merged = False
         for existing in accepted:
@@ -117,7 +136,12 @@ def process_items(
             mark_china_watch(item, china_watch_category)
             stats["china_watch"] += 1
         else:
-            item.category, item.tags = classify(item, category_rules)
+            generic_category_rules = {
+                category: values
+                for category, values in category_rules.items()
+                if category != china_watch_category
+            }
+            item.category, item.tags = classify(item, generic_category_rules)
         accepted.append(item)
         stats["accepted"] += 1
 

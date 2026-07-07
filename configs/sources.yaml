@@ -244,6 +244,60 @@ sources:
     frequency_minutes: 720
     tags: [media, economist, china-watch, p7-content]
 
+  - id: reuters_china_open_source_monitor
+    name: Reuters China/Open Source Monitor
+    type: rss
+    url: "https://news.google.com/rss/search?q=site:reuters.com%20%28open%20source%20OR%20GitHub%20OR%20Linux%20OR%20open%20model%20OR%20open-source%29%20%28China%20OR%20Chinese%20OR%20Huawei%20OR%20DeepSeek%20OR%20Alibaba%29&hl=en-US&gl=US&ceid=US:en"
+    category: 外媒涉华开源观察
+    enabled: true
+    frequency_minutes: 720
+    tags: [media, reuters, google-news, china-watch, p7-content]
+
+  - id: bloomberg_china_open_source_monitor
+    name: Bloomberg China/Open Source Monitor
+    type: rss
+    url: "https://news.google.com/rss/search?q=site:bloomberg.com%20%28open%20source%20OR%20GitHub%20OR%20Linux%20OR%20open%20model%20OR%20open-source%29%20%28China%20OR%20Chinese%20OR%20Huawei%20OR%20DeepSeek%20OR%20Alibaba%29&hl=en-US&gl=US&ceid=US:en"
+    category: 外媒涉华开源观察
+    enabled: true
+    frequency_minutes: 720
+    tags: [media, bloomberg, google-news, china-watch, p7-content]
+
+  - id: mit_technology_review_china_open_source_monitor
+    name: MIT Technology Review China/Open Source Monitor
+    type: rss
+    url: "https://news.google.com/rss/search?q=site:technologyreview.com%20%28open%20source%20OR%20GitHub%20OR%20Linux%20OR%20open%20model%20OR%20open-source%29%20%28China%20OR%20Chinese%20OR%20Huawei%20OR%20DeepSeek%20OR%20Alibaba%29&hl=en-US&gl=US&ceid=US:en"
+    category: 外媒涉华开源观察
+    enabled: true
+    frequency_minutes: 720
+    tags: [media, mit-technology-review, google-news, china-watch, p7-content]
+
+  - id: wired_china_open_source_monitor
+    name: Wired China/Open Source Monitor
+    type: rss
+    url: "https://news.google.com/rss/search?q=site:wired.com%20%28open%20source%20OR%20GitHub%20OR%20Linux%20OR%20open%20model%20OR%20open-source%29%20%28China%20OR%20Chinese%20OR%20Huawei%20OR%20DeepSeek%20OR%20Alibaba%29&hl=en-US&gl=US&ceid=US:en"
+    category: 外媒涉华开源观察
+    enabled: true
+    frequency_minutes: 720
+    tags: [media, wired, google-news, china-watch, p7-content]
+
+  - id: the_verge_china_open_source_monitor
+    name: The Verge China/Open Source Monitor
+    type: rss
+    url: "https://news.google.com/rss/search?q=site:theverge.com%20%28open%20source%20OR%20GitHub%20OR%20Linux%20OR%20open%20model%20OR%20open-source%29%20%28China%20OR%20Chinese%20OR%20Huawei%20OR%20DeepSeek%20OR%20Alibaba%29&hl=en-US&gl=US&ceid=US:en"
+    category: 外媒涉华开源观察
+    enabled: true
+    frequency_minutes: 720
+    tags: [media, the-verge, google-news, china-watch, p7-content]
+
+  - id: rest_of_world_china_open_source_monitor
+    name: Rest of World China/Open Source Monitor
+    type: rss
+    url: "https://news.google.com/rss/search?q=site:restofworld.org%20%28open%20source%20OR%20GitHub%20OR%20Linux%20OR%20open%20model%20OR%20open-source%29%20%28China%20OR%20Chinese%20OR%20Huawei%20OR%20DeepSeek%20OR%20Alibaba%29&hl=en-US&gl=US&ceid=US:en"
+    category: 外媒涉华开源观察
+    enabled: true
+    frequency_minutes: 720
+    tags: [media, rest-of-world, google-news, china-watch, p7-content]
+
   - id: twitter_open_source_kol
     name: Twitter/X OpenSourceKOL
     type: twitter_api_list
