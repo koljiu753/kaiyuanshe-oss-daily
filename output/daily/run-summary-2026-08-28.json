@@ -1,0 +1,201 @@
+{
+  "generated_at": "2026-08-28T05:56:51.542834+00:00",
+  "lookback_days": 1,
+  "report_items": 5,
+  "process": {
+    "irrelevant": 100,
+    "accepted": 5,
+    "seen_url": 7,
+    "china_watch_irrelevant": 1
+  },
+  "enrichment": {
+    "enriched": 0,
+    "translated": 0,
+    "rewritten": 0,
+    "cached": 0,
+    "skipped": 5,
+    "error": "DEEPSEEK_API_KEY is required for Chinese translation."
+  },
+  "sources": {
+    "thenewstack": {
+      "ok": 1,
+      "items": 8,
+      "name": "The New Stack"
+    },
+    "opensource_com": {
+      "ok": 1,
+      "items": 0,
+      "name": "Opensource.com"
+    },
+    "devclass": {
+      "ok": 1,
+      "items": 0,
+      "name": "DevClass"
+    },
+    "infoworld_open_source": {
+      "ok": 1,
+      "items": 0,
+      "name": "InfoWorld Open Source"
+    },
+    "techcrunch_open_source": {
+      "ok": 1,
+      "items": 0,
+      "name": "TechCrunch Open Source"
+    },
+    "zdnet_open_source": {
+      "ok": 1,
+      "items": 0,
+      "name": "ZDNet Open Source"
+    },
+    "arstechnica_open_source": {
+      "ok": 1,
+      "items": 0,
+      "name": "Ars Technica Open Source"
+    },
+    "theregister_open_source": {
+      "ok": 1,
+      "items": 0,
+      "name": "The Register Open Source"
+    },
+    "hacker_news": {
+      "ok": 0,
+      "items": 0,
+      "name": "Hacker News",
+      "error": "Server error '502 Bad Gateway' for url 'https://hnrss.org/newest?q=open%20source'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/502"
+    },
+    "reddit_opensource": {
+      "ok": 1,
+      "items": 4,
+      "name": "Reddit r/opensource"
+    },
+    "lobsters_open_source": {
+      "ok": 1,
+      "items": 15,
+      "name": "Lobsters"
+    },
+    "cncf_blog": {
+      "ok": 0,
+      "items": 0,
+      "name": "CNCF Blog",
+      "error": "Client error '403 Forbidden' for url 'https://www.cncf.io/feed/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/403"
+    },
+    "linux_foundation_blog": {
+      "ok": 1,
+      "items": 0,
+      "name": "Linux Foundation Blog"
+    },
+    "apache_foundation_blog": {
+      "ok": 1,
+      "items": 0,
+      "name": "Apache Software Foundation Blog"
+    },
+    "github_blog": {
+      "ok": 1,
+      "items": 1,
+      "name": "GitHub Blog"
+    },
+    "gitlab_blog": {
+      "ok": 1,
+      "items": 0,
+      "name": "GitLab Blog"
+    },
+    "google_open_source_blog": {
+      "ok": 1,
+      "items": 12,
+      "name": "Google Open Source Blog"
+    },
+    "microsoft_open_source_blog": {
+      "ok": 1,
+      "items": 0,
+      "name": "Microsoft Open Source Blog"
+    },
+    "aws_open_source_blog": {
+      "ok": 1,
+      "items": 0,
+      "name": "AWS Open Source Blog"
+    },
+    "mastodon_opensource": {
+      "ok": 1,
+      "items": 0,
+      "name": "Mastodon #opensource"
+    },
+    "mastodon_foss": {
+      "ok": 1,
+      "items": 0,
+      "name": "Mastodon #foss"
+    },
+    "mastodon_linux": {
+      "ok": 1,
+      "items": 0,
+      "name": "Mastodon #linux"
+    },
+    "cncf_youtube": {
+      "ok": 0,
+      "items": 0,
+      "name": "CNCF YouTube",
+      "error": "Client error '404 Not Found' for url 'https://www.youtube.com/feeds/videos.xml?channel_id=UCvqbFHwN-nwalWPjPUKpvTA'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    "linux_foundation_youtube": {
+      "ok": 0,
+      "items": 0,
+      "name": "Linux Foundation YouTube",
+      "error": "Client error '404 Not Found' for url 'https://www.youtube.com/feeds/videos.xml?channel_id=UCfX55Sx5hEFjoC3cNs6mCUQ'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
+    },
+    "nyt_technology_china_watch": {
+      "ok": 1,
+      "items": 23,
+      "name": "New York Times China/Open Source Monitor"
+    },
+    "ft_technology_china_watch": {
+      "ok": 1,
+      "items": 14,
+      "name": "Financial Times Technology"
+    },
+    "economist_china_watch": {
+      "ok": 1,
+      "items": 2,
+      "name": "The Economist China"
+    },
+    "reuters_china_open_source_monitor": {
+      "ok": 1,
+      "items": 26,
+      "name": "Reuters China/Open Source Monitor"
+    },
+    "bloomberg_china_open_source_monitor": {
+      "ok": 1,
+      "items": 4,
+      "name": "Bloomberg China/Open Source Monitor"
+    },
+    "mit_technology_review_china_open_source_monitor": {
+      "ok": 1,
+      "items": 0,
+      "name": "MIT Technology Review China/Open Source Monitor"
+    },
+    "wired_china_open_source_monitor": {
+      "ok": 1,
+      "items": 3,
+      "name": "Wired China/Open Source Monitor"
+    },
+    "the_verge_china_open_source_monitor": {
+      "ok": 1,
+      "items": 1,
+      "name": "The Verge China/Open Source Monitor"
+    },
+    "rest_of_world_china_open_source_monitor": {
+      "ok": 1,
+      "items": 0,
+      "name": "Rest of World China/Open Source Monitor"
+    }
+  },
+  "warnings": [
+    "采集失败源：Hacker News, CNCF Blog, CNCF YouTube, Linux Foundation YouTube",
+    "DEEPSEEK_API_KEY is required for Chinese translation."
+  ],
+  "duration_seconds": 41.86,
+  "phase_timings": {
+    "collect_seconds": 41.81,
+    "process_seconds": 0.01,
+    "enrich_seconds": 0.0,
+    "store_seconds": 0.0
+  }
+}
