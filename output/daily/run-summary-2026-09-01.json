@@ -1,24 +1,24 @@
 {
-  "generated_at": "2026-09-01T00:58:32.176939+00:00",
+  "generated_at": "2026-09-01T23:46:57.891196+00:00",
   "lookback_days": 1,
-  "report_items": 30,
+  "report_items": 19,
   "process": {
-    "irrelevant": 86,
-    "accepted": 30,
-    "china_watch_irrelevant": 1
+    "irrelevant": 90,
+    "accepted": 19,
+    "seen_url": 10
   },
   "enrichment": {
     "enriched": 0,
     "translated": 0,
     "rewritten": 0,
     "cached": 0,
-    "skipped": 30,
+    "skipped": 19,
     "error": "DEEPSEEK_API_KEY is required for Chinese translation."
   },
   "sources": {
     "thenewstack": {
       "ok": 1,
-      "items": 11,
+      "items": 9,
       "name": "The New Stack"
     },
     "opensource_com": {
@@ -42,9 +42,10 @@
       "name": "TechCrunch Open Source"
     },
     "zdnet_open_source": {
-      "ok": 1,
+      "ok": 0,
       "items": 0,
-      "name": "ZDNet Open Source"
+      "name": "ZDNet Open Source",
+      "error": "Client error '404 Not Found' for url 'https://www.zdnet.com/news/rss.xml'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
     },
     "arstechnica_open_source": {
       "ok": 1,
@@ -52,23 +53,24 @@
       "name": "Ars Technica Open Source"
     },
     "theregister_open_source": {
-      "ok": 1,
+      "ok": 0,
       "items": 0,
-      "name": "The Register Open Source"
+      "name": "The Register Open Source",
+      "error": "Client error '404 Not Found' for url 'https://www.theregister.com/software/open_source/'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404"
     },
     "hacker_news": {
       "ok": 1,
-      "items": 20,
+      "items": 16,
       "name": "Hacker News"
     },
     "reddit_opensource": {
       "ok": 1,
-      "items": 7,
+      "items": 2,
       "name": "Reddit r/opensource"
     },
     "lobsters_open_source": {
       "ok": 1,
-      "items": 23,
+      "items": 19,
       "name": "Lobsters"
     },
     "cncf_blog": {
@@ -98,10 +100,9 @@
       "name": "GitLab Blog"
     },
     "google_open_source_blog": {
-      "ok": 0,
-      "items": 0,
-      "name": "Google Open Source Blog",
-      "error": "Client error '429 Too Many Requests' for url 'https://www.google.com/sorry/index?continue=https://opensource.googleblog.com/&q=EgQ0mLTLGMzG2NQGIi3hsdEaKYOjzmcRduEwGXXQuUo2F9L3KoLo9LZl4cavmg1c-6UTsOuOW4xAgHwyAnJSWgFD'\nFor more information check: https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/429"
+      "ok": 1,
+      "items": 12,
+      "name": "Google Open Source Blog"
     },
     "microsoft_open_source_blog": {
       "ok": 1,
@@ -140,12 +141,12 @@
     },
     "nyt_technology_china_watch": {
       "ok": 1,
-      "items": 10,
+      "items": 11,
       "name": "New York Times China/Open Source Monitor"
     },
     "ft_technology_china_watch": {
       "ok": 1,
-      "items": 12,
+      "items": 15,
       "name": "Financial Times Technology"
     },
     "economist_china_watch": {
@@ -155,7 +156,7 @@
     },
     "reuters_china_open_source_monitor": {
       "ok": 1,
-      "items": 28,
+      "items": 30,
       "name": "Reuters China/Open Source Monitor"
     },
     "bloomberg_china_open_source_monitor": {
@@ -170,28 +171,28 @@
     },
     "wired_china_open_source_monitor": {
       "ok": 1,
-      "items": 0,
+      "items": 1,
       "name": "Wired China/Open Source Monitor"
     },
     "the_verge_china_open_source_monitor": {
       "ok": 1,
-      "items": 3,
+      "items": 0,
       "name": "The Verge China/Open Source Monitor"
     },
     "rest_of_world_china_open_source_monitor": {
       "ok": 1,
-      "items": 0,
+      "items": 1,
       "name": "Rest of World China/Open Source Monitor"
     }
   },
   "warnings": [
-    "采集失败源：CNCF Blog, Google Open Source Blog",
+    "采集失败源：ZDNet Open Source, The Register Open Source, CNCF Blog",
     "DEEPSEEK_API_KEY is required for Chinese translation."
   ],
-  "duration_seconds": 27.84,
+  "duration_seconds": 35.25,
   "phase_timings": {
-    "collect_seconds": 27.73,
-    "process_seconds": 0.07,
+    "collect_seconds": 35.17,
+    "process_seconds": 0.04,
     "enrich_seconds": 0.0,
     "store_seconds": 0.01
   }
