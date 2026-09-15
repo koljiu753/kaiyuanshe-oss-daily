@@ -1,25 +1,25 @@
 {
-  "generated_at": "2026-09-15T00:16:29.833101+00:00",
+  "generated_at": "2026-09-15T23:57:33.755236+00:00",
   "lookback_days": 1,
-  "report_items": 7,
+  "report_items": 6,
   "process": {
-    "irrelevant": 104,
-    "accepted": 7,
+    "irrelevant": 83,
+    "accepted": 6,
     "seen_url": 7,
-    "blacklisted": 1
+    "china_watch_irrelevant": 1
   },
   "enrichment": {
     "enriched": 0,
     "translated": 0,
     "rewritten": 0,
     "cached": 0,
-    "skipped": 7,
+    "skipped": 6,
     "error": "DEEPSEEK_API_KEY is required for Chinese translation."
   },
   "sources": {
     "thenewstack": {
       "ok": 1,
-      "items": 6,
+      "items": 8,
       "name": "The New Stack"
     },
     "opensource_com": {
@@ -49,7 +49,7 @@
     },
     "arstechnica_open_source": {
       "ok": 1,
-      "items": 0,
+      "items": 1,
       "name": "Ars Technica Open Source"
     },
     "theregister_open_source": {
@@ -65,12 +65,12 @@
     },
     "reddit_opensource": {
       "ok": 1,
-      "items": 9,
+      "items": 8,
       "name": "Reddit r/opensource"
     },
     "lobsters_open_source": {
       "ok": 1,
-      "items": 18,
+      "items": 19,
       "name": "Lobsters"
     },
     "cncf_blog": {
@@ -81,7 +81,7 @@
     },
     "linux_foundation_blog": {
       "ok": 1,
-      "items": 1,
+      "items": 0,
       "name": "Linux Foundation Blog"
     },
     "apache_foundation_blog": {
@@ -111,7 +111,7 @@
     },
     "aws_open_source_blog": {
       "ok": 1,
-      "items": 1,
+      "items": 0,
       "name": "AWS Open Source Blog"
     },
     "mastodon_opensource": {
@@ -141,22 +141,22 @@
     },
     "nyt_technology_china_watch": {
       "ok": 1,
-      "items": 20,
+      "items": 18,
       "name": "New York Times China/Open Source Monitor"
     },
     "ft_technology_china_watch": {
       "ok": 1,
-      "items": 24,
+      "items": 13,
       "name": "Financial Times Technology"
     },
     "economist_china_watch": {
       "ok": 1,
-      "items": 1,
+      "items": 0,
       "name": "The Economist China"
     },
     "reuters_china_open_source_monitor": {
       "ok": 1,
-      "items": 22,
+      "items": 16,
       "name": "Reuters China/Open Source Monitor"
     },
     "bloomberg_china_open_source_monitor": {
@@ -176,7 +176,7 @@
     },
     "the_verge_china_open_source_monitor": {
       "ok": 1,
-      "items": 3,
+      "items": 0,
       "name": "The Verge China/Open Source Monitor"
     },
     "rest_of_world_china_open_source_monitor": {
@@ -189,10 +189,10 @@
     "采集失败源：Hacker News, CNCF Blog",
     "DEEPSEEK_API_KEY is required for Chinese translation."
   ],
-  "duration_seconds": 25.89,
+  "duration_seconds": 29.43,
   "phase_timings": {
-    "collect_seconds": 25.83,
-    "process_seconds": 0.02,
+    "collect_seconds": 29.39,
+    "process_seconds": 0.01,
     "enrich_seconds": 0.0,
     "store_seconds": 0.01
   }
