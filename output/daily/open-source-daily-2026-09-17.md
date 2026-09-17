@@ -1,13 +1,13 @@
 # 开源资讯日报 2026-09-17
 
-> 生成时间：2026-09-17 00:04 +0000 | 共收录 30 条资讯
+> 生成时间：2026-09-17 23:54 +0000 | 共收录 36 条资讯
 
 ## 总览统计
 
-- 入选：30
-- URL 已入库跳过：8
+- 入选：36
+- URL 已入库跳过：9
 - 相似标题合并：0
-- 相关性过滤：85
+- 相关性过滤：82
 - 黑名单过滤：0
 - 翻译：0，摘要重写：0，缓存命中：0
 
@@ -18,166 +18,192 @@
 
 ## AI 开源
 
-1. **Typesafe.ai Jev Open Source Alternative Qwen-2.5-1B-RLCD**
-   摘要：Article URL: https://huggingface.co/spaces/drinkmoonshine/parallel-constrained-decoding Comments URL: https://news.ycombinator.com/item?id=49734345 Points: 1 # Comments: 0  
-   来源：Hacker News | 标签：AI, hacker-news, open source  
-   链接：https://huggingface.co/spaces/drinkmoonshine/parallel-constrained-decoding
-
-2. **Show HN: Interakt – open-source self-hosted search and AI chat for your website**
-   摘要：Article URL: https://github.com/alphasolutionsrepo/interakt Comments URL: https://news.ycombinator.com/item?id=49732963 Points: 2 # Comments: 0  
+1. **OpenWispr, a free, open-source push-to-talk AI dictation app for Android**
+   摘要：Article URL: https://github.com/EdiBianco/OpenWhispr Comments URL: https://news.ycombinator.com/item?id=49744080 Points: 2 # Comments: 0  
    来源：Hacker News | 标签：AI, hacker-news, open-source  
-   链接：https://github.com/alphasolutionsrepo/interakt
+   链接：https://github.com/EdiBianco/OpenWhispr
 
-3. **Cortex: An open-source L1 memory and state layer for autonomous AI agents**
-   摘要：Article URL: https://github.com/cortex-protocol/cortex-protocol Comments URL: https://news.ycombinator.com/item?id=49731631 Points: 2 # Comments: 0  
+2. **Show HN: Open-source AI teammates with their own computer**
+   摘要：Article URL: https://runerrand.dev/ Comments URL: https://news.ycombinator.com/item?id=49742388 Points: 6 # Comments: 3  
    来源：Hacker News | 标签：AI, hacker-news, open-source  
-   链接：https://github.com/cortex-protocol/cortex-protocol
+   链接：https://runerrand.dev/
 
-4. **Barndoor acquires Diaphora, creators of open-source workflow runtime Frags**
-   摘要：Article URL: https://barndoor.ai/barndoor-acquires-diaphora/ Comments URL: https://news.ycombinator.com/item?id=49731435 Points: 6 # Comments: 2  
+3. **AiPBX – Open-source PBX uniting Asterisk 22 and Port 443 ALPN multiplexing**
+   摘要：Article URL: https://github.com/mahirgul/AiPBX Comments URL: https://news.ycombinator.com/item?id=49740277 Points: 1 # Comments: 0  
    来源：Hacker News | 标签：AI, hacker-news, open-source  
-   链接：https://barndoor.ai/barndoor-acquires-diaphora
+   链接：https://github.com/mahirgul/AiPBX
 
-5. **Show HN: TabMail. Open-source AI email for Thunderbird and iPhone**
-   摘要：Hi all, I'm the sole developer of TabMail. I wanted my email client to have AI features, and ended up making a Thunderbird add-on and an iPhone app. I've now open-sourced both under MPL 2.0, and I wanted to share them...  
-   来源：Hacker News | 标签：AI, community, hacker-news, open-source  
-   链接：https://tabmail.ai/
+4. **ApowerB – open-source runtime for AI agents (Apache 2.0)**
+   摘要：Article URL: https://github.com/apowerb/apowerb Comments URL: https://news.ycombinator.com/item?id=49739951 Points: 3 # Comments: 2  
+   来源：Hacker News | 标签：AI, hacker-news, open-source  
+   链接：https://github.com/apowerb/apowerb
 
-6. **Show HN: Blue – open-source governance for coding agents**
-   摘要：Hey HN, After migrating to an inference gateway to serve internal usage across an organization, problems have started to pop up. Once you detach from a managed ecosystem such as OpenAI or Anthropic you lose governance...  
-   来源：Hacker News | 标签：AI, Go, governance, hacker-news, model, open-source  
-   链接：https://bluee.sh/
+5. **Show HN: OpenBot, open source framework similar to Grok Bot**
+   摘要：I think the path Grok Bot took is absolutely the right one, the collaborating bots model is easy to understand and it maps to workflows naturally. However, Grok Bot is closed source and quite expensive (I ran out of t...  
+   来源：Hacker News | 标签：AI, LLM, framework, hacker-news, model, open source  
+   链接：https://github.com/regnull/openbot
 
-7. **Talk to any self-hosted AI from your iPhone, Watch, Mac and car (open source)"**
-   摘要：Article URL: https://github.com/GigaDuckAI/conduck Comments URL: https://news.ycombinator.com/item?id=49728292 Points: 1 # Comments: 0  
-   来源：Hacker News | 标签：AI, hacker-news, open source  
-   链接：https://github.com/GigaDuckAI/conduck
+6. **Show HN: BiNeuron – Local, open-source alternative to ChatGPT Codex**
+   摘要：Article URL: https://github.com/just-not-google/BiNeuron/tree/main Comments URL: https://news.ycombinator.com/item?id=49735724 Points: 2 # Comments: 0  
+   来源：Hacker News | 标签：AI, Go, hacker-news, open-source  
+   链接：https://github.com/just-not-google/BiNeuron/tree/main
 
-8. **Archinstoo - Arch linux installer**
-   摘要：Halo people. Around November of last year I decided to fork archinstall This has landed me many contributions upstream and to arch packaging: see all contribs . Recently, I've been breaking apart the codebase more and...  
+7. **Couldn’t find a FOSS resilience layer for SearXNG, so I built one**
+   摘要：I wanted a more reliable self-hosted search setup using SearXNG, but free search engines can fail silently or become rate-limited. That can leave a query with only a few results even though more providers are availabl...  
+   来源：Reddit r/opensource | 标签：AI, FOSS, Go, reddit  
+   链接：https://www.reddit.com/r/opensource/comments/1wj67dp/couldnt_find_a_foss_resilience_layer_for_searxng
+
+8. **I built Nimbus, an open-source desktop GUI for yt-dlp**
+   摘要：I've been working on Nimbus , a simple Windows desktop GUI built around yt-dlp. I originally started it a few months ago as a personal-use project. I wanted something where I could just open an app, paste a link, choo...  
    来源：Reddit r/opensource | 标签：AI, Go, open-source, reddit  
-   链接：https://www.reddit.com/r/opensource/comments/1whr7cf/archinstoo_arch_linux_installer
+   链接：https://www.reddit.com/r/opensource/comments/1wizxi2/i_built_nimbus_an_opensource_desktop_gui_for_ytdlp
 
-## 云原生/容器
+9. **CalibRaw 1.0.0 RAW Photo Editor**
+   摘要：Hi, CalibRaw just got its first release :D. CalibRaw is a fully GPU-accelerated RAW editor focused on providing a smooth editing experience. LLMs were used in creating this program. Over the last 3 months, I tried to...  
+   来源：Reddit r/opensource | 标签：AI, Go, LLM, reddit, release  
+   链接：https://www.reddit.com/r/opensource/comments/1wixn2d/calibraw_100_raw_photo_editor
 
-1. **Automated agent and bot traffic has officially surpassed human web traffic for the first time.**
-   摘要：At KubeCon + CloudNativeCon China, Chris Aniszczyk shared how agentic AI is driving massive commit spikes and testing modern system limits. #CloudNative #Kubernetes #AI #PlatformEngineering #OpenSource #Shorts  
-   来源：CNCF YouTube | 标签：AI, CNCF, Kubernetes, cncf, opensource, youtube  
-   链接：https://www.youtube.com/shorts/1AnXS5qUYDM
+10. **Starting my fonline sdk substack**
+   摘要：I realized the best way to share technical information and to document my own learning was to create some as a blog when I can distribute part of my content and to facilitate new devs and hobbyists to mess a bit with...  
+   来源：Reddit r/opensource | 标签：AI, open source, reddit  
+   链接：https://www.reddit.com/r/opensource/comments/1wivy3n/starting_my_fonline_sdk_substack
 
-## 开源合规与许可证
+11. **I built a free, open-source dashboard for personal weather stations — StormDesk**
+   摘要：Hey everyone! I’ve been building StormDesk, a free and open-source dashboard that turns personal weather-station data into something easier to understand and use every day. It brings together: - Live station condition...  
+   来源：Reddit r/opensource | 标签：AI, open-source, reddit  
+   链接：https://www.reddit.com/r/opensource/comments/1wih5rr/i_built_a_free_opensource_dashboard_for_personal
 
-1. **Freeriding and Rebellion: An Investigation of Open Source Vendor Relicensing**
-   摘要：Article URL: https://onlinelibrary.wiley.com/doi/full/10.1111/isj.70060 Comments URL: https://news.ycombinator.com/item?id=49730491 Points: 4 # Comments: 0  
-   来源：Hacker News | 标签：hacker-news, licensing, open source  
-   链接：https://onlinelibrary.wiley.com/doi/full/10.1111/isj.70060
+12. **Optimize your team's price-performance with hosted open weight models**
+   摘要：There’s no single best model for every software development task. Implementing a new feature, diagnosing a failed pipeline, and resolving security vulnerabilities all place different demands on the model handling them...  
+   来源：GitLab Blog | 标签：AI, gitlab, model, security  
+   链接：https://about.gitlab.com/blog/optimize-with-open-weight-models
 
-2. **Building an open source AEC compliance checker that does not guess**
-   摘要：Article URL: https://www.luckmanqasim.com/blog/building-a-compliance-linter Comments URL: https://news.ycombinator.com/item?id=49726753 Points: 1 # Comments: 0  
-   来源：Hacker News | 标签：compliance, hacker-news, open source  
-   链接：https://www.luckmanqasim.com/blog/building-a-compliance-linter
+13. **See who spent your AI credits and set fair caps per team**
+   摘要：Scaling AI across your organization depends on knowing where the budget is going and who’s using it. While a subscription cap keeps your total spend within budget, it can’t tell you how much AI was used by individual...  
+   来源：GitLab Blog | 标签：AI, Go, business, gitlab  
+   链接：https://about.gitlab.com/blog/new-usage-caps-2026
 
-3. **GPLv3 core + MIT API vs GPLv3 with plugin exception for an extensible Java plugin?**
-   摘要：I’m working on an open-source Minecraft/Paper plugin called Custodian. It provides item identity/custody infrastructure: unique item IDs, duplicate detection, quarantine, revocation history, rekeying, etc. I want two...  
-   来源：Reddit r/opensource | 标签：AI, GPL, Java, commercial, licensing, open source, open-source, reddit  
-   链接：https://www.reddit.com/r/opensource/comments/1wic5ob/gplv3_core_mit_api_vs_gplv3_with_plugin_exception
+14. **New MCP tools help platform teams scale automation safely**
+   摘要：Agentic tools are moving fast past code completion into running pipelines, opening merge requests, and triaging work on a team's behalf. The Model Context Protocol ( MCP ) has become the common way these agents reach...  
+   来源：GitLab Blog | 标签：Go, gitlab, governance, model  
+   链接：https://about.gitlab.com/blog/new-mcp-tools-for-automation
 
-4. **Is corporate GPL with limited API used to extinguish competition?**
-   摘要：I have come across several corporate projects which have GPL licensed codebase and provide (obviously purposefully) some very limited API. This creates an interesting niche in which anyone trying to extend the functio...  
-   来源：Reddit r/opensource | 标签：GPL, license, reddit  
-   链接：https://www.reddit.com/r/opensource/comments/1wi87ss/is_corporate_gpl_with_limited_api_used_to
+15. **GitLab Duo CLI takes a task from goal to done**
+   摘要：Complex tasks hit a wall at the end of every chat turn. Developers already know what they're trying to accomplish. What stalls the work is the handoff back and forth between each step. Without a pre-defined definition...  
+   来源：GitLab Blog | 标签：AI, Go, gitlab  
+   链接：https://about.gitlab.com/blog/gitlab-duo-cli-drives-automation
 
-## 开源商业/公司动态
+16. **Reconnecting with the heart of open source: Highlights from our 2026 GSoC India tour**
+   摘要：Reconnecting with the heart of open source: Highlights from our 2026 GSoC India tour Thursday, September 17, 2026 by Mary Radomile , Stephanie Taylor & amanda casari , OSPO For over twenty years, Google Summer of Code...  
+   来源：Google Open Source Blog | 标签：AI, Go, community, google, open source  
+   链接：https://opensource.googleblog.com/2026/09/reconnecting-with-the-heart-of-open-source-highlights-from-our-2026-gsoc-india-tour.html
 
-1. **Automattic says CEO Mullenweg was gone and back inside 33 hours. What happened between?**
-   摘要：There were unusual goings-on this month at Automattic, a company known for its free and open-source app for building WordPress The post Automattic says CEO Mullenweg was gone and back inside 33 hours. What happened be...  
-   来源：The New Stack | 标签：Go, company, media, open-source  
-   链接：https://thenewstack.io/automattic-mullenweg-boardroom-reversal
+## 基金会/企业博客
 
-## 社区
+1. **Rate limits on GitLab.com are changing**
+   摘要：GitLab.com hosts millions of projects for teams of every size that need a platform they can rely on. Demand is climbing quickly, and we expect platform load to grow several times over this year. Predictable limits are...  
+   来源：GitLab Blog | 标签：gitlab  
+   链接：https://about.gitlab.com/blog/rate-limit-change-2026
 
-1. **The smallest possible Linux distribution**
-   摘要：Comments  
-   来源：Lobsters | 标签：lobsters  
-   链接：https://distrowatch.com/weekly.php?issue=20260914
+## 安全
 
-## 科技媒体
+1. **I built an open-source PR check that fails only when a change opens a real attack path (read-only live demo)**
+   摘要：Hi everyone, I’m working alone, as the sole maintainer, on a context engine for DevSecOps. The project is called PerspectiveGraph. If there are security professionals here with experience in securing pipelines, I’d be...  
+   来源：Reddit r/opensource | 标签：AI, Kubernetes, exploit, maintainer, open-source, reddit, security  
+   链接：https://www.reddit.com/r/opensource/comments/1wiu20m/i_built_an_opensource_pr_check_that_fails_only
 
-1. **“Everyone’s in a race to replace GitHub”: Zed launches Delta because agents made pull requests obsolete**
-   摘要：Something of a consensus has emerged from the developer fraternity in 2026 — GitHub, a platform built substantively for human The post “Everyone’s in a race to replace GitHub”: Zed launches Delta because agents made p...  
-   来源：The New Stack | 标签：media  
-   链接：https://thenewstack.io/zed-delta-github-alternative
+## 社区/基金会
+
+1. **Linux Foundation Newsletter: September 2026**
+   摘要：Welcome to the September 2026 edition of the Linux Foundation Newsletter The open agentic AI community is coming together in San Jose for AGNTCon + MCPCon North America, October 22–23. More than 3,500 developers, rese...  
+   来源：Linux Foundation Blog | 标签：AI, Linux Foundation, community, foundation, linux-foundation, maintainer, security  
+   链接：https://www.linuxfoundation.org/blog/linux-foundation-newsletter-september-2026
 
 ## 综合
 
-1. **I Found One Interesting Open Source GitHub Gem**
-   摘要：Article URL: https://github.com/maximhq/bifrost Comments URL: https://news.ycombinator.com/item?id=49731862 Points: 3 # Comments: 0  
+1. **PPPlayer – An open-source music player built with Flutter**
+   摘要：Article URL: https://ppplayer.com Comments URL: https://news.ycombinator.com/item?id=49748159 Points: 1 # Comments: 0  
+   来源：Hacker News | 标签：hacker-news, open-source  
+   链接：https://ppplayer.com
+
+2. **Lepton from Valve to run Android games on Linux is now open source**
+   摘要：Article URL: https://www.gamingonlinux.com/2026/09/lepton-from-valve-to-run-android-games-on-linux-is-now-open-source/ Comments URL: https://news.ycombinator.com/item?id=49746343 Points: 5 # Comments: 0  
+   来源：Hacker News | 标签：Go, hacker-news, open source, open-source  
+   链接：https://www.gamingonlinux.com/2026/09/lepton-from-valve-to-run-android-games-on-linux-is-now-open-source
+
+3. **My first open source feature request**
+   摘要：Article URL: https://github.com/microsoft/WSL/issues/41625 Comments URL: https://news.ycombinator.com/item?id=49744904 Points: 1 # Comments: 0  
    来源：Hacker News | 标签：hacker-news, open source  
-   链接：https://github.com/maximhq/bifrost
+   链接：https://github.com/microsoft/WSL/issues/41625
 
-2. **Vector Search in open-source MySQL**
-   摘要：Article URL: https://villagesql.com/blog/vector-search-hnsw/ Comments URL: https://news.ycombinator.com/item?id=49731527 Points: 3 # Comments: 1  
-   来源：Hacker News | 标签：hacker-news, open-source  
-   链接：https://villagesql.com/blog/vector-search-hnsw
-
-3. **Show HN: LaunchPad-Lite – Open-Source Next.js 15 with Better Auth and Drizzle**
-   摘要：Article URL: https://github.com/BZDevelopments/LaunchPad-Lite Comments URL: https://news.ycombinator.com/item?id=49729694 Points: 1 # Comments: 0  
-   来源：Hacker News | 标签：hacker-news, open-source  
-   链接：https://github.com/BZDevelopments/LaunchPad-Lite
-
-4. **Nano Empire – Open-source MCP gateway with x402 micropayments and A2A routing**
-   摘要：Article URL: https://nano-empire-mcp-1064490927432.us-central1.run.app Comments URL: https://news.ycombinator.com/item?id=49729373 Points: 2 # Comments: 0  
-   来源：Hacker News | 标签：hacker-news, open-source  
-   链接：https://nano-empire-mcp-1064490927432.us-central1.run.app
-
-5. **Show HN: Put an AI agent on a FaceTime audio/video call (open source, WebRTC)**
-   摘要：Hey everyone, Gary here from Chert (YC P26). We just open-sourced a framework for putting AI agents on FaceTime audio/video calls: https://github.com/cherthq/chert-facetime-opensource . There's also a managed inbound/...  
-   来源：Hacker News | 标签：AI, framework, hacker-news, open source, open-source, opensource  
-   链接：https://github.com/cherthq/chert-facetime-opensource
-
-6. **Show HN: Orthant, an open-source macOS window manager where you draw the region**
-   摘要：Article URL: https://orthant.app/ Comments URL: https://news.ycombinator.com/item?id=49728517 Points: 1 # Comments: 0  
-   来源：Hacker News | 标签：hacker-news, open-source  
-   链接：https://orthant.app/
-
-7. **Mojo compiler is open for open source contributions [Mojo]**
-   摘要：Article URL: https://forum.modular.com/t/mojo-compiler-is-open-for-open-source-contributions/3499 Comments URL: https://news.ycombinator.com/item?id=49727908 Points: 1 # Comments: 0  
+4. **W3C launches first pilot of program to support Open Source projects**
+   摘要：Article URL: https://www.w3.org/blog/2026/w3c-launches-first-pilot-of-program-to-support-open-source-projects/ Comments URL: https://news.ycombinator.com/item?id=49743938 Points: 2 # Comments: 0  
    来源：Hacker News | 标签：hacker-news, open source, open-source  
-   链接：https://forum.modular.com/t/mojo-compiler-is-open-for-open-source-contributions/3499
+   链接：https://www.w3.org/blog/2026/w3c-launches-first-pilot-of-program-to-support-open-source-projects
 
-8. **Switched to Claude Code's open-source rival, stopped worrying about rate limits**
-   摘要：Article URL: https://www.xda-developers.com/switched-to-claude-code-open-source-rival-and-stopped-worrying-about-rate-limits/ Comments URL: https://news.ycombinator.com/item?id=49727345 Points: 1 # Comments: 0  
-   来源：Hacker News | 标签：hacker-news, open-source  
-   链接：https://www.xda-developers.com/switched-to-claude-code-open-source-rival-and-stopped-worrying-about-rate-limits
+5. **Open Source Lightroom**
+   摘要：Article URL: https://darkroom-taupe-rho.vercel.app/ Comments URL: https://news.ycombinator.com/item?id=49742607 Points: 4 # Comments: 1  
+   来源：Hacker News | 标签：hacker-news, open source  
+   链接：https://darkroom-taupe-rho.vercel.app/
 
-9. **Readest – free open-source ePub and PDF reader**
-   摘要：Article URL: https://readest.com/ Comments URL: https://news.ycombinator.com/item?id=49726512 Points: 1 # Comments: 1  
+6. **Show HN: Prokop – Open-source coding environment with agents that learn**
+   摘要：Article URL: https://github.com/capek-dev/prokop Comments URL: https://news.ycombinator.com/item?id=49740924 Points: 1 # Comments: 0  
    来源：Hacker News | 标签：hacker-news, open-source  
-   链接：https://readest.com/
+   链接：https://github.com/capek-dev/prokop
+
+7. **PartPilot Open-source component intelligence for hardware engineers**
+   摘要：Article URL: https://github.com/partpilot-in/partpilot Comments URL: https://news.ycombinator.com/item?id=49740748 Points: 3 # Comments: 0  
+   来源：Hacker News | 标签：hacker-news, open-source  
+   链接：https://github.com/partpilot-in/partpilot
+
+8. **Open source semi: Windrose puts its electric truck online, for free**
+   摘要：Article URL: https://electrek.co/2026/09/17/open-source-semi-windrose-puts-its-electric-truck-online-for-free/ Comments URL: https://news.ycombinator.com/item?id=49739646 Points: 2 # Comments: 0  
+   来源：Hacker News | 标签：hacker-news, open source, open-source  
+   链接：https://electrek.co/2026/09/17/open-source-semi-windrose-puts-its-electric-truck-online-for-free
+
+9. **Show HN: Alidade – an open-source Web-GIS where the map is one JSON document**
+   摘要：Article URL: https://github.com/AysanZ/alidade Comments URL: https://news.ycombinator.com/item?id=49737256 Points: 2 # Comments: 0  
+   来源：Hacker News | 标签：hacker-news, open-source  
+   链接：https://github.com/AysanZ/alidade
+
+10. **Show HN: Pqp, an open-source Discord alternative with watch parties**
+   摘要：Article URL: https://github.com/rafaelcg/pqp Comments URL: https://news.ycombinator.com/item?id=49735555 Points: 1 # Comments: 0  
+   来源：Hacker News | 标签：hacker-news, open-source  
+   链接：https://github.com/rafaelcg/pqp
+
+11. **Need a Linux user to test my app**
+   摘要：I'm looking for someone on Linux to test my app. It's completely open source, and premium access will be given to the tester for free. Before launching, I just want to make sure it works on Linux... If you're interest...  
+   来源：Reddit r/opensource | 标签：open source, reddit  
+   链接：https://www.reddit.com/r/opensource/comments/1wizr24/need_a_linux_user_to_test_my_app
+
+12. **Trade/borrow network?**
+   摘要：Do any of you guys know if there’s some open source software that is free and can be used as a barter and borrow network. I want to have some sort of trade and borrow network with my friends and we have different devi...  
+   来源：Reddit r/opensource | 标签：open source, reddit  
+   链接：https://www.reddit.com/r/opensource/comments/1wiippx/tradeborrow_network
 
 ## 编程语言与框架
 
-1. **RustFS 1.0.0 GA: Production-Ready, Open Source, S3-Compatible Object Storage**
-   摘要：Article URL: https://rustfs.com/blog/announcing-rustfs-1-0-0-ga/ Comments URL: https://news.ycombinator.com/item?id=49732888 Points: 1 # Comments: 0  
-   来源：Hacker News | 标签：Rust, hacker-news, open source  
-   链接：https://rustfs.com/blog/announcing-rustfs-1-0-0-ga
+1. **GitHub and Anthropic used their own agents for major Rust rewrites — with very different playbooks**
+   摘要：Rust is seemingly the language of the moment, with open-source projects and companies forming an orderly queue to move core The post GitHub and Anthropic used their own agents for major Rust rewrites — with very diffe...  
+   来源：The New Stack | 标签：Rust, media, open-source  
+   链接：https://thenewstack.io/github-copilot-anthropic-rust-migration
 
-2. **rypipe - Format- and source-agnostic ingestion framework**
-   摘要：Hi! My name is Emiliano, I'm a data engineer by trade and developer by love. Almost a year ago a client came to me with a problem: parse ~5TB of Crystal Reports XML in under an hour. So I built the parser, and a few m...  
-   来源：Reddit r/opensource | 标签：AI, Go, business, framework, open source, reddit  
-   链接：https://www.reddit.com/r/opensource/comments/1wi3ts2/rypipe_format_and_sourceagnostic_ingestion
+2. **Show HN: An open source PDF Reader with annotation, notes, SRS, Linking support**
+   摘要：A calm, local-first desktop PDF reader designed to make sure you remember what you read. You can link notes across files and group notes/annotations into a larger Markdown note, which can be linked with others. The Re...  
+   来源：Hacker News | 标签：hacker-news, open source, release  
+   链接：https://github.com/roshanmishra86/Mereth-Reader/releases/tag/v0.1.4
 
-3. **Looking for a phone or phone hardware that either ships with an open source OS, or can have one installed?**
-   摘要：Basically title. I’m wanting to leave iOS far behind and get more into mobile programming, and obviously as a Linux user I’m not a big fan of bloatware. What’s a good phone (or base phone) to use for my goals? I was l...  
-   来源：Reddit r/opensource | 标签：Go, open source, reddit  
-   链接：https://www.reddit.com/r/opensource/comments/1whwosg/looking_for_a_phone_or_phone_hardware_that_either
-
-4. **Ubuntu 26.10 completes transition to Rust-based coreutils**
+3. **Be alert: targeted attacks on prominent Rustaceans**
    摘要：Comments  
    来源：Lobsters | 标签：Rust, lobsters  
-   链接：https://www.omgubuntu.co.uk/2026/09/ubuntu-2610-rust-coreutils-complete
+   链接：https://blog.rust-lang.org/2026/09/17/targeted-attacks
 
-5. **Why building a Rust LSP is hard**
+4. **Developing provably correct Rust code with Verus**
    摘要：Comments  
    来源：Lobsters | 标签：Rust, lobsters  
-   链接：https://rust-glancer.github.io/blog/why-lsp-is-hard
+   链接：https://www.amazon.science/blog/developing-provably-correct-rust-code-with-verus
+
+5. **Migrating the GitHub Copilot runtime to Rust, using Copilot**
+   摘要：A rewrite this size wasn't affordable before agents. Here's what porting the Copilot agent runtime to 800,000 lines of production Rust actually took. The post Migrating the GitHub Copilot runtime to Rust, using Copilo...  
+   来源：GitHub Blog | 标签：Rust, github  
+   链接：https://github.blog/ai-and-ml/generative-ai/migrating-the-github-copilot-runtime-to-rust-using-copilot
