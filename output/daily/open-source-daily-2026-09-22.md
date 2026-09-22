@@ -1,13 +1,13 @@
 # 开源资讯日报 2026-09-22
 
-> 生成时间：2026-09-22 00:35 +0000 | 共收录 21 条资讯
+> 生成时间：2026-09-22 23:58 +0000 | 共收录 25 条资讯
 
 ## 总览统计
 
-- 入选：21
-- URL 已入库跳过：8
+- 入选：25
+- URL 已入库跳过：9
 - 相似标题合并：0
-- 相关性过滤：99
+- 相关性过滤：92
 - 黑名单过滤：0
 - 翻译：0，摘要重写：0，缓存命中：0
 
@@ -18,113 +18,141 @@
 
 ## AI 开源
 
-1. **Show HN: Four-Leaf MCP, open-source job search and interview prep**
-   摘要：Article URL: https://github.com/fourleafai/clover-public Comments URL: https://news.ycombinator.com/item?id=49791084 Points: 2 # Comments: 0  
+1. **Claude Opus 5.5 delivers Fable 5.1 performance – and costs 40% less**
+   摘要：Anthropic’s newest Claude model aims to make frontier AI cheaper, faster, and safer, while giving subscribers more breathing room before those frustrating usage limits kick in.  
+   来源：ZDNet Open Source | 标签：AI, Rust, media, model  
+   链接：https://www.zdnet.com/innovation/anthropic-claude-opus-5-5-fable-5-1-performance-costs-less
+
+2. **Show HN: Open-source Express-like HTTP server in C++**
+   摘要：Hey guys, I made an open-source Express like non blocking HTTP Server library in C++. Starting a new web server is as simple as initiating the app with the desired port (8080 default) and start registering routes. #in...  
    来源：Hacker News | 标签：AI, hacker-news, open-source  
-   链接：https://github.com/fourleafai/clover-public
+   链接：https://amsozzer.com/projects/plusweb
 
-2. **Show HN: AURA – Open-source behavioral threat detection for LLMs**
-   摘要：Article URL: https://github.com/kate8382/AURA Comments URL: https://news.ycombinator.com/item?id=49790069 Points: 2 # Comments: 0  
-   来源：Hacker News | 标签：LLM, hacker-news, open-source  
-   链接：https://github.com/kate8382/AURA
-
-3. **US District Court Decision in AI's Favor Worries Open-Source Developers**
-   摘要：Article URL: https://devops.com/us-district-court-decision-in-ais-favor-worries-open-source-developers/ Comments URL: https://news.ycombinator.com/item?id=49788911 Points: 4 # Comments: 0  
-   来源：Hacker News | 标签：AI, hacker-news, open-source  
-   链接：https://devops.com/us-district-court-decision-in-ais-favor-worries-open-source-developers
-
-4. **Open Source Polygo: translate your app's strings with a local model, Git-native**
-   摘要：Article URL: https://github.com/Na5co/polygo Comments URL: https://news.ycombinator.com/item?id=49788480 Points: 1 # Comments: 0  
-   来源：Hacker News | 标签：Go, hacker-news, model, open source  
-   链接：https://github.com/Na5co/polygo
-
-5. **Assay – Open-source mechanical checker for web pages, no tests, no LLM**
-   摘要：Article URL: https://github.com/awss1i/assay Comments URL: https://news.ycombinator.com/item?id=49787853 Points: 1 # Comments: 0  
-   来源：Hacker News | 标签：LLM, hacker-news, open-source  
-   链接：https://github.com/awss1i/assay
-
-6. **Show HN: Open-source shared memory for teams of AI coding agents**
-   摘要：Article URL: https://github.com/motif-Labs/motif Comments URL: https://news.ycombinator.com/item?id=49786875 Points: 2 # Comments: 0  
-   来源：Hacker News | 标签：AI, hacker-news, open-source  
-   链接：https://github.com/motif-Labs/motif
-
-7. **Show HN: Maki, an open-source multi-agent LLM framework (local or hosted)**
-   摘要：Article URL: https://github.com/BowlOfData/maki Comments URL: https://news.ycombinator.com/item?id=49785562 Points: 2 # Comments: 1  
-   来源：Hacker News | 标签：LLM, framework, hacker-news, open-source  
-   链接：https://github.com/BowlOfData/maki
-
-8. **Show HN: Open Source AI Employees**
-   摘要：Fable 5 scored 99.19% on WebVoyager a few months ago, a be A benchmark is not your logged-in admin panel. Browser use agents are no longer demos. I believe this is a big tipping point. I have been a web developer for...  
-   来源：Hacker News | 标签：AI, Go, business, hacker-news, open source  
-   链接：https://github.com/markfulton/ai-employees
-
-9. **ZCode, embroiled in a controversy over stealing user code, is now open source**
-   摘要：Article URL: https://github.com/zai-org/ZCode/blob/main/README.en.md Comments URL: https://news.ycombinator.com/item?id=49782440 Points: 5 # Comments: 0  
+3. **Open source tool for building hierarchical agent loops**
+   摘要：Article URL: https://github.com/plasma-ai/fractal Comments URL: https://news.ycombinator.com/item?id=49807198 Points: 2 # Comments: 0  
    来源：Hacker News | 标签：AI, hacker-news, open source  
-   链接：https://github.com/zai-org/ZCode/blob/main/README.en.md
+   链接：https://github.com/plasma-ai/fractal
 
-10. **Convert The Spire Reborn v14.0.1**
-   摘要：GitHub release with update notes: https://github.com/Lukas-Bohez/ConvertTheSpireFlutter/releases/tag/v14.0.1 Website with screenshots + detailed description + download links: https://quizthespire.com/tools/convert Vid...  
-   来源：Reddit r/opensource | 标签：AI, reddit, release  
-   链接：https://www.reddit.com/r/opensource/comments/1wme8eo/convert_the_spire_reborn_v1401
+4. **US Dow Iron Bank: open-source, vetted and hardened containers**
+   摘要：Article URL: https://p1.dso.mil/iron-bank Comments URL: https://news.ycombinator.com/item?id=49806468 Points: 3 # Comments: 0  
+   来源：Hacker News | 标签：AI, container, hacker-news, open-source  
+   链接：https://p1.dso.mil/iron-bank
 
-11. **Squalk: an old-school forum engine built on Nostr (NIP-29 groups, NIP-7D threads)**
-   摘要：I miss classic forums: slow, asynchronous threads that stay readable and searchable for years, instead of knowledge dissolving into chat scrollback. Squalk is my attempt to rebuild that on top of Nostr, an open protoc...  
-   来源：Lobsters | 标签：AI, community, lobsters  
-   链接：https://github.com/dtonon/squalk
+5. **Show HN: IntelliChat minimalist, open-source UI for local and cloud AI**
+   摘要：I built IntelliChat because I wanted a simple interface for working with different AI models, but without losing the advanced capabilities. You can generate text, images, and audio using local models, cloud models, or...  
+   来源：Hacker News | 标签：AI, Go, MIT license, hacker-news, license, model, open source, open-source  
+   链接：https://github.com/intelligentnode/IntelliChat
+
+6. **Show HN: ReacherX – Open-source Apollo alternative for founders and devs**
+   摘要：Hi HN, I'm Salman. I started ReacherX as a side project in mid 2023 while studying at university, working part-time, and freelancing. I went full-time on it in June 2026. First time sharing something I built on Hacker...  
+   来源：Hacker News | 标签：AI, Go, hacker-news, open-source  
+   链接：https://www.reacherx.com/home
+
+7. **Open-source "PostHog" for AI visibility**
+   摘要：Article URL: https://github.com/Canonry/canonry Comments URL: https://news.ycombinator.com/item?id=49799873 Points: 1 # Comments: 1  
+   来源：Hacker News | 标签：AI, hacker-news, open-source  
+   链接：https://github.com/Canonry/canonry
+
+8. **How to design GitLab for enterprise scale**
+   摘要：At enterprise scale, even small architecture choices can have outsized consequences. A deployment that works for a handful of teams can become a constraint once thousands of developers, repositories, and pipelines dep...  
+   来源：GitLab Blog | 标签：AI, enterprise, gitlab, model  
+   链接：https://about.gitlab.com/blog/how-to-design-gitlab-for-enterprise-scale
+
+## 云原生/容器
+
+1. **Confidential GPUs on Kubernetes: From Silicon to Service | CNCF**
+   摘要："If it's shared, it's vulnerable." At KubeCon + CloudNativeCon China, Zvonko Kaiser shared how Confidential Containers extend trust from silicon to service to protect AI workloads on Kubernetes. By bringing confidenti...  
+   来源：CNCF YouTube | 标签：AI, CNCF, Kubernetes, Rust, cloud native, cncf, container, foundation, maintainer, model, youtube  
+   链接：https://www.youtube.com/shorts/VuMlfQqFb28
+
+## 安全
+
+1. **Fifty Years of Open Source Software Supply Chain Security**
+   摘要：Comments  
+   来源：Lobsters | 标签：AI, lobsters, open source, security, supply chain  
+   链接：https://queue.acm.org/doi/10.1145/3722542
+
+## 开源商业/公司动态
+
+1. **Open-Source Business-as-Code Platform to Orchestrate Agents**
+   摘要：Article URL: https://github.com/littlehorse-enterprises Comments URL: https://news.ycombinator.com/item?id=49803066 Points: 4 # Comments: 0  
+   来源：Hacker News | 标签：business, enterprise, hacker-news, open-source  
+   链接：https://github.com/littlehorse-enterprises
+
+## 社区
+
+1. **GitHub Actions leaking secrets when Miri output is cached**
+   摘要：Comments  
+   来源：Lobsters | 标签：lobsters  
+   链接：https://blog.rust-lang.org/2026/09/21/github-actions-leaking-secrets-when-miri-output-is-cached
 
 ## 社区/基金会
 
-1. **RFC-0285: The Magma GPU open-source project**
-   摘要：Article URL: https://fuchsia.dev/fuchsia-src/contribute/governance/rfcs/0285_magma_gpu_open_source_project Comments URL: https://news.ycombinator.com/item?id=49786448 Points: 1 # Comments: 0  
-   来源：Hacker News | 标签：Go, governance, hacker-news, open-source  
-   链接：https://fuchsia.dev/fuchsia-src/contribute/governance/rfcs/0285_magma_gpu_open_source_project
+1. **Show HN: Nowly – An open-source alternative to PreMiD for Discord Rich Presence**
+   摘要：Hi HN, We've been using PreMiD for years and eventually decided to build our own alternative. Nowly is an open-source browser extension that automatically displays what you're doing on the web as a Discord Rich Presen...  
+   来源：Hacker News | 标签：community, hacker-news, open-source  
+   链接：https://nowly.me
+
+2. **Meet Lebin Cheng - Speaker at KubeCon + CloudNativeCon North America 2026**
+   摘要：Join Lebin Cheng of RailXia at KubeCon + CloudNativeCon North America, November 9-12 in Salt Lake City, Utah. Lebin and Yusheng Zheng will present “Beyond Harnesses and Sandboxes: Runtime Protection for AI Agents with...  
+   来源：CNCF YouTube | 标签：AI, CNCF, cncf, foundation, youtube  
+   链接：https://www.youtube.com/watch?v=WIkB7EzymUI
 
 ## 综合
 
-1. **AWS open-sources an AI agent it says is 45% cheaper than Claude Code and Codex**
-   摘要：Amazon Web Services (AWS) is lifting the lid on a new open source, general-purpose AI agent, designed to give developers The post AWS open-sources an AI agent it says is 45% cheaper than Claude Code and Codex appeared...  
-   来源：The New Stack | 标签：AI, media, open source, open-source  
-   链接：https://thenewstack.io/aws-strands-harness-agent
+1. **Open source tries to govern AI code**
+   摘要：Article URL: https://freenode.net/article/from-blanket-bans-to-agents-md-open-source-tries-to-govern-ai-code Comments URL: https://news.ycombinator.com/item?id=49803239 Points: 1 # Comments: 0  
+   来源：Hacker News | 标签：AI, Go, hacker-news, open source, open-source  
+   链接：https://freenode.net/article/from-blanket-bans-to-agents-md-open-source-tries-to-govern-ai-code
 
-2. **Luxir: Open-source hybrid search engine**
-   摘要：Article URL: https://luxir.org/ Comments URL: https://news.ycombinator.com/item?id=49795240 Points: 1 # Comments: 0  
+2. **Errand – open-source Grok Bot and Muse alternative, built in a week**
+   摘要：Article URL: https://runta.com/blog/building-errand-in-one-week/ Comments URL: https://news.ycombinator.com/item?id=49803044 Points: 4 # Comments: 2  
    来源：Hacker News | 标签：hacker-news, open-source  
-   链接：https://luxir.org/
+   链接：https://runta.com/blog/building-errand-in-one-week
 
-3. **Can We Trust Open Source Models for Production Code? Eval Results**
-   摘要：Article URL: https://medium.com/towards-artificial-intelligence/can-we-trust-open-source-models-for-production-code-754e3c7c3b7a Comments URL: https://news.ycombinator.com/item?id=49788524 Points: 2 # Comments: 1  
-   来源：Hacker News | 标签：Rust, hacker-news, model, open source, open-source  
-   链接：https://medium.com/towards-artificial-intelligence/can-we-trust-open-source-models-for-production-code-754e3c7c3b7a
+3. **Project OM10 – open-source Mechanical Watch**
+   摘要：Article URL: https://openmovement.org/project/om10/ Comments URL: https://news.ycombinator.com/item?id=49802908 Points: 1 # Comments: 0  
+   来源：Hacker News | 标签：hacker-news, open-source  
+   链接：https://openmovement.org/project/om10
 
-4. **Why open source always wins**
-   摘要：Article URL: https://pgdog.dev/blog/why-open-source-always-wins Comments URL: https://news.ycombinator.com/item?id=49787392 Points: 4 # Comments: 1  
+4. **Nvidia Isaac ROS 5.0: agentic, open-source robotics development**
+   摘要：Article URL: https://blogs.nvidia.com/blog/isaac-ros-5-0-agentic-open-source-robotics/ Comments URL: https://news.ycombinator.com/item?id=49800991 Points: 2 # Comments: 0  
+   来源：Hacker News | 标签：hacker-news, open-source  
+   链接：https://blogs.nvidia.com/blog/isaac-ros-5-0-agentic-open-source-robotics
+
+5. **Show HN: Builder – An open-source alternative to Lovable, Replit, and v0**
+   摘要：Article URL: https://github.com/heyputer/builder Comments URL: https://news.ycombinator.com/item?id=49800217 Points: 4 # Comments: 0  
+   来源：Hacker News | 标签：hacker-news, open-source  
+   链接：https://github.com/heyputer/builder
+
+6. **I scanned 64 open-source repos for broken translation placeholders. 21 ship one**
+   摘要：Article URL: https://shipi18n.com/oss Comments URL: https://news.ycombinator.com/item?id=49800055 Points: 1 # Comments: 1  
+   来源：Hacker News | 标签：hacker-news, open-source  
+   链接：https://shipi18n.com/oss
+
+7. **Will Open Source Survive the Agents That Replaced It?**
+   摘要：Article URL: https://albertoarena.it/posts/will-open-source-survive-the-agents-that-replaced-it/ Comments URL: https://news.ycombinator.com/item?id=49799910 Points: 27 # Comments: 57  
    来源：Hacker News | 标签：hacker-news, open source, open-source  
-   链接：https://pgdog.dev/blog/why-open-source-always-wins
+   链接：https://albertoarena.it/posts/will-open-source-survive-the-agents-that-replaced-it
 
-5. **Show HN: Hibi – An open-source obsidian alternative**
-   摘要：Article URL: https://github.com/schmayterling/hibi Comments URL: https://news.ycombinator.com/item?id=49782528 Points: 5 # Comments: 1  
-   来源：Hacker News | 标签：hacker-news, open-source  
-   链接：https://github.com/schmayterling/hibi
+8. **OpenPrinter: Open Source Printer**
+   摘要：Article URL: https://www.crowdsupply.com/open-tools/openprinter Comments URL: https://news.ycombinator.com/item?id=49798169 Points: 10 # Comments: 2  
+   来源：Hacker News | 标签：hacker-news, open source  
+   链接：https://www.crowdsupply.com/open-tools/openprinter
 
-6. **Jev – System-1 Agent Architecture Radar (open-source)**
-   摘要：Article URL: https://github.com/logicrw/awesome-jev-projects Comments URL: https://news.ycombinator.com/item?id=49782061 Points: 3 # Comments: 0  
-   来源：Hacker News | 标签：hacker-news, open-source  
-   链接：https://github.com/logicrw/awesome-jev-projects
-
-7. **LATTICE - A FREE browser DAW/UI on top of strudel.**
-   摘要：If you like making music I am building a FREE open source DAW on top of Strudel! Would love some feedback! submitted by /u/jimmy1460 [link] [comments]  
-   来源：Reddit r/opensource | 标签：open source, reddit  
-   链接：https://www.reddit.com/r/opensource/comments/1wmoova/lattice_a_free_browser_dawui_on_top_of_strudel
-
-8. **FOSS Linux Player Piano App**
-   摘要：submitted by /u/sysrpl [link] [comments]  
-   来源：Reddit r/opensource | 标签：FOSS, reddit  
-   链接：https://www.reddit.com/r/opensource/comments/1wm7n1f/foss_linux_player_piano_app
+9. **I was tired of constantly searching for EU tech internships, so I built my own open-source scraper**
+   摘要：I kept spending way too much time scrolling through LinkedIn Jobs, always thinking there might be another internship or new-grad position I hadn't found yet. Eventually, I decided to build something for it. It collect...  
+   来源：Reddit r/opensource | 标签：Go, open source, open-source, reddit  
+   链接：https://www.reddit.com/r/opensource/comments/1wnmnyz/i_was_tired_of_constantly_searching_for_eu_tech
 
 ## 编程语言与框架
 
-1. **Goodreads -> GitHub profile README 📚**
-   摘要：Ever wanted to show off what you're reading on your GitHub profile? I made this GitHub Action, try it out! https://github.com/quentinlintz/goodreads-readme-action submitted by /u/quentinlintz [link] [comments]  
-   来源：Reddit r/opensource | 标签：Go, reddit  
-   链接：https://www.reddit.com/r/opensource/comments/1wmh37j/goodreads_github_profile_readme
+1. **Writing Rust code that's faster than state-of-the-art libraries by asking agents to make the code faster**
+   摘要：Comments  
+   来源：Lobsters | 标签：Rust, lobsters  
+   链接：https://minimaxir.com/2026/09/agentic-iteration
+
+2. **How GitLab reduced code-per-agentic-flow ratio by 45%**
+   摘要：GitLab Duo Agent Platform orchestrates and automates complex tasks through agentic flows. A key part of the platform is the Flow Registry, a declarative configuration framework, built from reusable components, that co...  
+   来源：GitLab Blog | 标签：AI, Python, framework, gitlab  
+   链接：https://about.gitlab.com/blog/how-gitlab-reduced-code-per-agentic-flow-ratio
